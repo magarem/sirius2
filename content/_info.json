@@ -1,0 +1,84 @@
+{
+    "logo": {
+        "name": "Magaweb",
+        "img": "",
+        "slogan": "sistemas"
+    },
+    "contact": [
+        {
+            "name": "fone",
+            "icon": "PhoneIcon",
+            "value": "3232323232323"
+        },
+        {
+            "name": "email",
+            "icon": "MailIcon",
+            "value": "magawebtec@gmail.com"
+        },
+        {
+            "name": "endereço",
+            "icon": "LineChartIcon",
+            "value": "Rua das Marrecas, 123"
+        }
+    ],
+    "navbar": [
+        {
+            "label": "Início",
+            "link": "/#home"
+        },
+        {
+            "label": "Sobre",
+            "link": "/#about"
+        },
+        {
+            "label": "Service",
+            "link": "/services"
+        },
+        {
+            "label": "Portfolio",
+            "link": "/portfolio"
+        },
+        {
+            "label": "Contato",
+            "link": "/#contact"
+        }
+    ],
+    "links": [
+        {
+            "label": "Início",
+            "link": "/#home"
+        },
+        {
+            "label": "Sobre",
+            "link": "/#about"
+        },
+        {
+            "label": "Produtos",
+            "link": "/#service"
+        },
+        {
+            "label": "Portfolio",
+            "link": "/#portfolio"
+        },
+        {
+            "label": "Contato",
+            "link": "/#contact"
+        }
+    ],
+    "socialmidias": [
+        {
+            "midia": "instagram",
+            "link": "https://www.instagram.com/marcelomaga108/"
+        },
+        {
+            "midia": "facebook",
+            "link": "https://www.facebook.com/marcelomaga108/?locale=pt_BR"
+        }
+    ],
+    "copyright": "© Magaweb. Crafted and Coded with ❤️ by Maguete",
+    "destaques": {
+        "options": {
+            "delay": 5000
+        }
+    }
+}

@@ -1,0 +1,144 @@
+<div id="treeview"></div>
+
+<script>
+const data = [
+  {
+    "_path": "/_info",
+    "_dir": "",
+    "title": "Info"
+  },
+  {
+    "_path": "/about",
+    "_dir": "",
+    "title": "Quem somos"
+  },
+  {
+    "_path": "/destaques/_dir",
+    "_dir": "destaques",
+    "title": "destaques"
+  },
+  {
+    "_path": "/destaques/consultoria_webmarketing",
+    "_dir": "destaques",
+    "title": "Consultoria webmarketing"
+  },
+  {
+    "_path": "/destaques/designer",
+    "_dir": "destaques",
+    "title": "Composição de flyers"
+  },
+  {
+    "_path": "/destaques/paravyomayoga",
+    "_dir": "destaques",
+    "title": "Paravyomayoga"
+  },
+  {
+    "_path": "/destaques/siriusstudio",
+    "_dir": "destaques",
+    "title": "Sirius Studio CMS"
+  },
+  {
+    "_path": "/portfolio/_dir",
+    "_dir": "portfolio",
+    "title": "Portfólio"
+  },
+  {
+    "_path": "/portfolio/novagokula",
+    "_dir": "portfolio",
+    "title": "Nova Gokula"
+  },
+  {
+    "_path": "/portfolio/oxidereport",
+    "_dir": "portfolio",
+    "title": "Oxide report"
+  },
+  {
+    "_path": "/portfolio/paravyomayoga",
+    "_dir": "portfolio",
+    "title": "Paravyoma yoga"
+  },
+  {
+    "_path": "/services/_dir",
+    "_dir": "services",
+    "title": "Serviços"
+  },
+  {
+    "_path": "/services/desenv",
+    "_dir": "services",
+    "title": "Desenvolvimento"
+  },
+  {
+    "_path": "/services/linux/_dir",
+    "_dir": "linux",
+    "title": "Ambiente Linux"
+  },
+  {
+    "_path": "/services/linux/linux2",
+    "_dir": "linux",
+    "title": "top Linux"
+  },
+  {
+    "_path": "/services/siriusstudio",
+    "_dir": "services",
+    "title": "Sírius Studio CMS"
+  },
+  {
+    "_path": "/services/webmarketing",
+    "_dir": "services",
+    "title": "Webmarketing"
+  }
+];
+
+// Função para criar a estrutura de árvore
+function buildTree(data) {
+  const tree = {};
+
+  data.forEach(item => {
+    const pathParts = item._path.split('/').filter(part => part && !part.endsWith('_dir'));
+    let current = tree;
+
+    pathParts.forEach((part, index) => {
+      if (!current[part]) {
+        current[part] = {
+          title: index === pathParts.length - 1 ? item.title : '',
+          path: index === pathParts.length - 1 ? item._path : '',
+          children: {}
+        };
+      }
+      current = current[part].children;
+    });
+  });
+
+  return tree;
+}
+
+// Função recursiva para criar a estrutura HTML de árvore
+function createTreeView(node) {
+  const ul = document.createElement('ul');
+
+  Object.keys(node).forEach(key => {
+    const item = node[key];
+    const li = document.createElement('li');
+
+    if (item.path) {
+      const a = document.createElement('a');
+      a.textContent = item.title;
+      a.href = item.path;
+      li.appendChild(a);
+    } else {
+      li.textContent = item.title;
+    }
+
+    if (Object.keys(item.children).length > 0) {
+      li.appendChild(createTreeView(item.children));
+    }
+
+    ul.appendChild(li);
+  });
+
+  return ul;
+}
+
+const treeData = buildTree(data);
+document.getElementById('treeview').appendChild(createTreeView(treeData));
+</script>
