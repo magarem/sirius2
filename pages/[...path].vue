@@ -5,9 +5,9 @@
   </div>
   <section id="" class="py-2 lg:py-2">
     
-    <div class="container " v-if="data[0]?.imageposition == 'hide'">
+    <div class="container_ " v-if="data[0]?.imageposition == 'hide'">
       <div class="gap-6 _items-center ">
-          <h2 class="text-3xl font-medium text-default-950 mt-0 text-left wml-[93px]">{{ data[0]?.title }}</h2>
+          <!-- <h2 class="text-3xl font-medium text-default-950 mt-0 text-left wml-[93px]">{{ data[0]?.title }}</h2> -->
           <!-- <p class="text-base mt-1"> -->
             <ContentRenderer :value="data[0]" />
             <!-- {{data[0]?.description}} -->
@@ -31,10 +31,10 @@
       <div class="gap-6 _items-center ">
         <div class="">
           <h2 class="text-4xl font-medium text-default-950 mt-0">{{ data[0]?.title }}</h2>
-          <!-- <p class="text-base mt-4"> -->
+          <p class="text-base mt-4">
             <ContentRenderer :value="data[0]" />
             <!-- {{data[0]?.description}} -->
-          <!-- </p> -->
+          </p>
         </div>
       </div>
     </div>

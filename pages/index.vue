@@ -8,18 +8,23 @@
 
     <About :data="about" />
 
-    <!-- <Services :info="{title: 'Serviços'}" :items="services" /> -->
-
-    <!-- <Portfolio :info="{title: 'Portfólio'}" :items="portfolio" /> -->
-
-    <!-- <Contact :data="info.contact"/> -->
-    <!-- <Work /> -->
-    <!-- <Service2 /> -->
-
-    <!-- <Faq /> -->
-
-    <!-- <Blog /> -->
-
+    <cards 
+      class="container" 
+      :info="
+        {
+        title: 'Serviços', 
+        desc: 'Confira meus serviços', 
+        show:['image', 'title', 'description'], 
+        limit: 6}" 
+      :items="services"
+    />
+    <cards class="container" :info="
+        {
+        title: 'Portfólio', 
+        desc: 'Confira meus trabalhos', 
+        show:['image', 'title', 'description'], 
+        limit: 6}"  
+      :items="portfolio"/>
 
 
 </template>

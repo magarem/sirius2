@@ -12,8 +12,8 @@
             <LineChartIcon v-if="item.icon == 'LineChartIcon'" class="h-10 w-10" />
             <SaveIcon v-if="item.icon == 'SaveIcon'" class="h-10 w-10" />
           </div>
-          <h4 class="text-xl font-medium text-default-950 mt-5">{{ item.name }}</h4>
-          <p class="text-base text-default-800 mt-1">{{ item.value }}</p>
+          <!-- <h4 class="text-xl font-medium text-default-950 mt-5">{{ item.name }}</h4> -->
+          <!-- <p class="text-base text-default-800 mt-1">{{ item.value }}</p> -->
         </div>
       </div>
     </div>
