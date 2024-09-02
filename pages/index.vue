@@ -9,7 +9,7 @@
     <About :data="about" />
 
     <cards 
-      class="container" 
+      class="container mb-10" 
       :info="
         {
         title: 'Serviços', 

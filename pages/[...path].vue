@@ -81,4 +81,8 @@ ul {
 li {
   margin: 5px 0;
 }
+
+p {
+  margin-bottom: 10px;
+}
 </style>
