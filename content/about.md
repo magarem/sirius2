@@ -1,7 +1,7 @@
 ---
 title: Quem somos
-images: ["/images/equipe-em-processo-de-criacao.jpg", "/images/img-10.jpg"]
-imageposition: top
+images: ["/images/equipe-em-processo-de-criacao.jpg", "/images/quemsomos2.jpg"]
+imageposition: side
 ---
 Na Magaweb, somos apaixonados por criar soluções digitais inovadoras que transformam ideias em realidade. Com uma abordagem centrada no cliente e um olhar atento para as tendências do mercado, oferecemos serviços completos de desenvolvimento de sistemas para a web e estratégias de webmarketing.
 

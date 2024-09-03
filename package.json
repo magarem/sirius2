@@ -17,6 +17,7 @@
     "@vueuse/core": "^10.7.2",
     "apexcharts": "^3.45.2",
     "caniuse-lite": "^1.0.30001644",
+    "gh-pages": "^6.1.1",
     "glightbox": "^3.2.0",
     "gumshoejs": "^5.1.2",
     "lucide-vue-next": "^0.325.0",

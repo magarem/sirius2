@@ -6,10 +6,10 @@
   <section id="" class="py-2 lg:py-2">
     
     <div class="container_ " v-if="data[0]?.imageposition == 'hide'">
-      <div class="gap-6 _items-center ">
+      <div class="gap-6 _items-center">
           <!-- <h2 class="text-3xl font-medium text-default-950 mt-0 text-left wml-[93px]">{{ data[0]?.title }}</h2> -->
           <!-- <p class="text-base mt-1"> -->
-            <ContentRenderer :value="data[0]" />
+            <ContentRenderer  class="container" :value="data[0]" />
             <!-- {{data[0]?.description}} -->
           <!-- </p> -->
       </div>
@@ -18,12 +18,7 @@
 
 
     <div class="container" v-if="data[0]?.imageposition == 'top'">
-      <div class="mb-5" v-if="!data[0]?.images[1]">
-        <div v-for="img in data[0]?.images" :key="img" class="mb-5">
-          <img :src="img" class="object-cover w-full max-h-[400px] rounded-xl mx-auto" alt="" />
-        </div>
-      </div>
-      <div v-else class="grid lg:grid-cols-2 gap-6 _items-center ">
+      <div class="grid lg:grid-cols-2 gap-6 _items-center ">
         <div v-for="img in data[0]?.images" :key="img" class="mb-5">
           <img :src="img" class="object-cover h-[400px] max-h-[400px] rounded-xl mx-auto" alt="" />
         </div>
@@ -84,5 +79,9 @@ li {
 
 p {
   margin-bottom: 10px;
+  font-size: 17px;
+}
+h1 {
+  font-size: 25px;
 }
 </style>

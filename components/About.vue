@@ -19,7 +19,7 @@
             </a>
           </div>
           <div>
-            <img :src="data.images[0]" alt="" class="mx-auto h-80" />
+            <img :src="data.images[0]" alt="" class="object-scale-down mx-auto h-80" />
           </div>
         </div>
       </div>

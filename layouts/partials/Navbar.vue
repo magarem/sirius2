@@ -10,7 +10,7 @@
         <div class="shrink">
           <!-- Navbar Brand Logo -->
           <nuxt-link to="/">
-            <span class="text-default-900 text-2xl">{{ logo.name }}</span><span class="ml-1 italic text-default-900 text-l/2">{{ logo.slogan }}</span>
+            <span class="text-default-900 text-2xl">{{ logo.name }}</span><span class="ml-1 text-default-900 text-l/2">{{ logo.slogan }}</span>
             <!-- <img :src="logoDark" alt="logo" class="h-10 flex dark:hidden" /> -->
             <!-- <img :src="logoLight" alt="logo" class="h-10 hidden dark:flex" /> -->
           </nuxt-link>
