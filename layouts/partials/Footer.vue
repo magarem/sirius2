@@ -5,7 +5,7 @@
         <div class="grid grid-cols-4 gap-1">
           <div class="_bg-slate-700 p-3">
             <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">{{ data.logo.name }}</h5>
-            <p>{{ data.logo.slogan }}</p>
+            <p>{{ data.logo.footer }}</p>
           </div>
           <div class="_bg-slate-700 p-3">
             <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Seções</h5>
@@ -33,27 +33,22 @@
                     <LinkedinIcon v-if="item.midia == 'linkedin'" class="h-5 w-5" />
                   </a>
                 </div>
-                {{ item.link }}
+                {{ item.link.split('/')[3] }}
               </div>
                 <h5 class="text-base font-medium text-default-800"></h5>
-
-
-                <!-- </a> -->
-
-
               </div>
             </ul>
           </div>
           <div class="_bg-slate-700 p-3">
             <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Contato</h5>
             <ul _class="flex flex-col gap-3 ">
+              <!-- {{ data.contact }} -->
               <li v-for="item in Object.entries(data.contact)" :key="item[0]">
-                <div _class="container mx-auto p-1 grid md:grid-cols-2 gap-3" v-if="item[1].length > 10">
-                  <p class="text-base text-default-700 hover:text-default-950 transition-all">{{ item[0] }}: {{ item[1] }}
+                <div _class="container mx-auto p-1 grid md:grid-cols-2 gap-3" >
+                  <p class="text-base text-default-700 hover:text-default-950 transition-all">{{ item[0] }}: {{ item[1].value }}
                   </p>
                 </div>
               </li>
-
             </ul>
           </div>
         </div>

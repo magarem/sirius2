@@ -55,7 +55,9 @@
           >
             <!-- <NuxtImg :src="feature.image" /> -->
             <!-- <div class="h-screen g-gray-400">sdsds -->
-              <div class="mt-0 h-[500px]"><img :src="featured.images[0]" alt="" class="object-cover" /></div>
+              <div class=" h-screen bg-stone-950">
+                  <img :src="featured.images[0]" alt="" class="object-contain" />
+                </div>
               
               <!-- <div class="absolute inset-0 bg-black/25"></div> -->
             <!-- </div> -->

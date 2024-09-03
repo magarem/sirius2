@@ -10,11 +10,10 @@ const props = defineProps(['title'])
 
 <template>
    <cards 
-      class="container" 
+      class="container_" 
       :info="
         {
-        title: props.title, 
-        desc: 'Confira meus serviços', 
+        desc: '', 
         show:['image', 'title', 'description'], 
         limit: 6}" 
       :items="data"
