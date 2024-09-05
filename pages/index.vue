@@ -2,9 +2,9 @@
 
   <Carrossel :info="Destaques_info" :data="destaques" />
 
-  <!-- <section class="lg:pb-10">
-      <MarqueeGroup />
-    </section> -->
+  <section class="lg:pb-10">
+      <MarqueeGroup :marqeeItems="marqeeItems"/>
+    </section>
 
   <About :data="about[0]" />
 
@@ -30,8 +30,16 @@
 // })
 
 import Carrossel from '@/components/Carrossel.vue'
+import MarqueeGroup from '@/components/MarqueeGroup.vue'
 import About from '@/components/About.vue'
 
+
+const marqeeItems = [
+      'Desenvolvimento',
+      'Webmarketing',
+      'Segurança de redes',
+      'Ambiente Linux'
+    ]
 const formatDate = (date) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(date).toLocaleDateString('en', options)

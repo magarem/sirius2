@@ -61,16 +61,10 @@
             "link": "/contact"
         }
     ],
-    "socialmidias": [
-        {
-            "midia": "instagram",
-            "link": "https://www.instagram.com/marcelomaga108"
-        },
-        {
-            "midia": "facebook",
-            "link": "https://www.facebook.com/marcelomaga108"
-        }
-    ],
+    "socialmidias": {
+        "instagram": "https://www.instagram.com/marcelomaga108",
+        "facebook": "https://www.facebook.com/marcelomaga108"
+    },
     "copyright": "© Criado pela Magaweb ",
     "destaques": {
         "options": {

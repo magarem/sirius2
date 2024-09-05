@@ -100,7 +100,7 @@
             :key="link.name"
             class="text-sm font-medium text-default-900 rounded capitalize transition-all duration-300 hover:bg-default-100 hover:text-primary [&.active]:bg-default-100 [&.active]:text-primary"
           >
-            <a class="block w-full py-2.5 px-4" :href="`#${link.id}`">{{ link.name }} </a>
+            <a class="block w-full py-2.5 px-4" :href="`#${link.link}`">{{ link.label }} </a>
           </li>
 
           <li class="hs-accordion" id="landing-accordion">
@@ -145,7 +145,7 @@ import type { NavbarLinkType } from '@/types/layout'
 import type { PropType } from 'vue'
 
 // import { navbarLinkData } from '@/utilities/layout'
-
+import { ChevronDownIcon, MenuIcon } from 'lucide-vue-next'
 import gumshoeMin from 'gumshoejs'
 import { onMounted, type FunctionalComponent } from 'vue'
 

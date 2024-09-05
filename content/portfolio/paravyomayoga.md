@@ -1,7 +1,7 @@
 ---
 title: Website Yogaterapia
-images: [/images/portfolio/paravyoma.png]
-imageposition: top
+images: [/images/portfolio/paravyoma.png, /images/portfolio/paravyomayoga_arte1.png]
+imageposition: side
 category: site
 tags: [marketing, comunicação]
 ---

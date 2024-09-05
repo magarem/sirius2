@@ -1,6 +1,6 @@
 ---
 title: Oxide report
-images: [/images/portfolio/ohxidereport_screenshot.png]
+images: [/images/portfolio/ohxidereport.png]
 imageposition: side
 category: sistema
 tags: [marketing, comunicação]

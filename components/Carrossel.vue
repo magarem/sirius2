@@ -49,18 +49,15 @@
           :speed="1000"
         >
           <SwiperSlide
-            class="relative"
+            class="relative bg-black"
             v-for="(featured, idx) in data"
             :key="`agency-featureImg-${idx + 1}`"
           >
-            <!-- <NuxtImg :src="feature.image" /> -->
-            <!-- <div class="h-screen g-gray-400">sdsds -->
-              <div class=" h-screen bg-stone-950">
-                  <img :src="featured.images[0]" alt="" class="object-contain" />
-                </div>
+           
+                  <!-- <img :src="featured.images[0]" alt="" class="object-contain" /> -->
+                  <img :src="featured.images[0]" alt="" class="object-cover h-full w-full max-h-[500px]" />
               
-              <!-- <div class="absolute inset-0 bg-black/25"></div> -->
-            <!-- </div> -->
+              <div class="absolute inset-0 bg-black/25"></div>
           </SwiperSlide>
         </Swiper>
       </div>
