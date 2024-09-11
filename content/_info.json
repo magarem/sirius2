@@ -9,12 +9,14 @@
         "Telefone":{
             "icon": "PhoneIcon",
             "value": "62 993852820"
-        }, "E-mail":{
+        }, 
+        "E-mail":{
             "icon": "MailIcon",
             "value": "magawebtec@gmail.com"
-        }, "Endereço":{
+        }, 
+        "Endereço":{
             "icon": "LineChartIcon",
-            "value": "Fazenda Nova Gokula S/N, Pindamonhangaba, SP , Brasil"
+            "value": "Fazenda Nova Gokula Pindamonhangaba"
         }
     },
     "navbar": [

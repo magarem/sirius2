@@ -14,7 +14,7 @@
               <p class="text-base text-default-800 mt-6">
                 {{ data.logo.footer }}
               </p>
-              <form class="space-y-2 mt-6">
+              <!--form class="space-y-2 mt-6">
                 <div class="relative">
                   <input
                     type="email"
@@ -30,7 +30,7 @@
                     <MoveRightIcon class="h-6 w-6" />
                   </button>
                 </div>
-              </form>
+              </form-->
             </div>
           </div>
 
@@ -92,28 +92,10 @@
           </div>
 
           <div class="">
-            <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Links</h5>
+            <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Contato</h5>
             <ul class="flex flex-col gap-3">
-              <li>
-                <a
-                  href="javascript:void(0);"
-                  class="text-base text-default-700 hover:text-default-950 transition-all"
-                  >Privacy Policy</a
-                >
-              </li>
-              <li>
-                <a
-                  href="javascript:void(0);"
-                  class="text-base text-default-700 hover:text-default-950 transition-all"
-                  >Terms & Conditions</a
-                >
-              </li>
-              <li>
-                <a
-                  href="javascript:void(0);"
-                  class="text-base text-default-700 hover:text-default-950 transition-all"
-                  >Presskit</a
-                >
+              <li v-for="(item, idx) in Object.entries(data.contact)" :key="item[1]">
+                <span class="text-base text-default-700 hover:text-default-950 transition-all" :href="`#${item[0]}`">{{item[1].value}} </span>
               </li>
             </ul>
           </div>
