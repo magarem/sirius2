@@ -1,7 +1,7 @@
 
 <template>
   <footer>
-    <div class="border-y border-default-200">
+    <div class="border-y border-default-200 text-slate-500 dark:text-default-950">
       <div class="container py-20">
         <div class="grid xl:grid-cols-5 md:grid-cols-3 gap-10 lg:gap-16">
           <div class="xl:col-span-2 md:col-span-3">
@@ -11,7 +11,7 @@
                 <!-- <img :src="logoDark" alt="logo" class="h-10 flex dark:hidden" />
                 <img :src="logoLight" alt="logo" class="h-10 hidden dark:flex" /> -->
               </a>
-              <p class="text-base text-default-800 mt-6">
+              <p class="text-base mt-6">
                 {{ data.logo.footer }}
               </p>
               <!--form class="space-y-2 mt-6">
@@ -35,12 +35,12 @@
           </div>
 
           <div class="">
-            <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Navegação</h5>
+            <h5 class="xl:text-xl lg:text-lg font-medium  mb-4">Navegação</h5>
             <ul class="flex flex-col gap-3">
              
 
               <li v-for="(link, idx) in data.navbar" :key="link.name">
-                <a class="text-base text-default-700 hover:text-default-950 transition-all" :href="`#${link.link}`">{{ link.label }} </a>
+                <a class="text-base hover:text-default-950 transition-all" :href="`#${link.link}`">{{ link.label }} </a>
               </li>
 
 
@@ -50,52 +50,52 @@
 
           <div class="">
             <ul class="flex flex-col gap-3">
-              <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Social Media</h5>
+              <h5 class="xl:text-xl lg:text-lg font-medium  mb-4">Social Media</h5>
               <div class="space-y-3">
                 <a v-if="data.socialmidias.facebook" :href="data.socialmidias.facebook" class="flex items-center gap-5 group">
                   <div
-                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300 text-default-800 rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
+                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300  rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
                   >
                     <FacebookIcon class="h-5 w-5" />
                   </div>
-                  <h5 class="text-base font-medium text-default-800">Facebook</h5>
+                  <h5 class="text-base font-medium ">Facebook</h5>
                 </a>
 
                 <a v-if="data.socialmidias.instagram" :href="data.socialmidias.instagram" class="flex items-center gap-5 group">
                   <div
-                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300 text-default-800 rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
+                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300  rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
                   >
                     <InstagramIcon class="h-5 w-5" />
                   </div>
-                  <h5 class="text-base font-medium text-default-800">Instagram</h5>
+                  <h5 class="text-base font-medium ">Instagram</h5>
                 </a>
 
                 <a v-if="data.socialmidias.twitter" :href="data.socialmidias.twitter" class="flex items-center gap-5 group">
                   <div
-                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300 text-default-800 rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
+                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300  rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
                   >
                     <TwitterIcon class="h-5 w-5" />
                   </div>
-                  <h5 class="text-base font-medium text-default-800">Twitter</h5>
+                  <h5 class="text-base font-medium ">Twitter</h5>
                 </a>
 
                 <a v-if="data.socialmidias.linkedin" :href="data.socialmidias.linkedin" class="flex items-center gap-5 group">
                   <div
-                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300 text-default-800 rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
+                    class="h-10 w-10 inline-flex items-center justify-center border border-default-300  rounded-lg transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary"
                   >
                     <LinkedinIcon class="h-5 w-5" />
                   </div>
-                  <h5 class="text-base font-medium text-default-800">Linkedin</h5>
+                  <h5 class="text-base font-medium ">Linkedin</h5>
                 </a>
               </div>
             </ul>
           </div>
 
           <div class="">
-            <h5 class="xl:text-xl lg:text-lg font-medium text-default-800 mb-4">Contato</h5>
+            <h5 class="xl:text-xl lg:text-lg font-medium  mb-4">Contato</h5>
             <ul class="flex flex-col gap-3">
               <li v-for="(item, idx) in Object.entries(data.contact)" :key="item[1]">
-                <span class="text-base text-default-700 hover:text-default-950 transition-all" :href="`#${item[0]}`">{{item[1].value}} </span>
+                <span class="text-base  hover:text-default-950 transition-all" :href="`#${item[0]}`">{{item[1].value}} </span>
               </li>
             </ul>
           </div>
@@ -107,7 +107,7 @@
       <div
         class="container flex flex-wrap justify-center items-center h-full md:justify-between text-center md:text-start"
       >
-        <p class="text-base text-default-900">
+        <p class="text-base text-slate-500 dark:text-default-950">
           {{ year }}
           {{data.copyright}}
         </p>

@@ -8,6 +8,7 @@
   <script setup>
   import TreeView from '~/components/TreeView.vue'; // Import TreeView component
   
+  
   // Define the full tree data
   const { data: treeData } = await useAsyncData('navigation', () => fetchContentNavigation())
   // const treeData = [

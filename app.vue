@@ -1,15 +1,13 @@
 <template>
+
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
+import { useThemeStore } from '@/stores/themes'
 import 'assets/css/style.css'
-
-// definePageMeta({
-//   middleware: ['auth']
-// })
 
 useHead({
   title: 'Magaweb',
@@ -29,4 +27,7 @@ useSeoMeta({
   description:
     'A Magaweb production'
 })
+
+
+
 </script>

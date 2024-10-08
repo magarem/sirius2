@@ -24,12 +24,19 @@
                     {{ feature.title }}
                   </h2>
                   <p class="text-base mt-5 mb-7">{{ feature.description }}</p>
+                 
                   <a
+                    v-if="false"
                     :href="feature._path"
                     class="inline-flex items-center justify-center gap-2 border border-default-200 text-default-950 py-2 px-6 rounded-md hover:bg-primary hover:text-white transition-all duration-300"
                     >Saber mais
                     <ArrowUpRightIcon class="h-6 w-6" />
                   </a>
+
+                  <nuxt-link :to="feature._path" class="inline-flex items-center justify-center gap-2 border border-default-200 text-default-950 py-2 px-6 rounded-md hover:bg-primary hover:text-white transition-all duration-300">Saber mais
+                    <ArrowUpRightIcon class="h-6 w-6" /></nuxt-link>
+
+
                 </div>
               </SwiperSlide>
             </Swiper>

@@ -1,7 +1,7 @@
 <template>
-  <Navbar  :logo="info.logo" :navbar-link="info.navbar" btn-text="PDF" :btn-icon="DownloadCloudIcon" />
+  <Navbar :logo="info.logo" :navbar-link="info.navbar" btn-text="PDF" :btn-icon="DownloadCloudIcon" />
   <slot />
-  <Footer  :data="info" />
+  <Footer :data="info" />
   <client-only>
     <BackToTop />
   </client-only>

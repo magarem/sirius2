@@ -1,11 +1,11 @@
 
 <template>
-  <section id="about" class="py-10 lg:py-20">
-    <div class="container">
-      <div class="border border-primary/10 bg-primary/5 p-14">
+  <section id="about_" class="py-10 lg:py-7  ">
+    <div class="container text-slate-300">
+      <div class="border border-primary/10 bg-zinc-800 p-14">
         <div class="grid items-center gap-6 lg:grid-cols-2">
           <div>
-            <h2 class="text-4xl/tight font-medium text-default-950">
+            <h2 class="text-4xl/tight font-medium">
              {{ data.title }} 
             </h2>
             <p class="mb-7 mt-4 text-base">
@@ -13,7 +13,7 @@
             </p>
             <a
               :href="data._path"
-              class="inline-flex items-center justify-center gap-2 bg-primary px-8 py-2 text-base text-white transition-all hover:bg-primary-700"
+              class="inline-flex items-center justify-center gap-2 bg-primary px-8 py-2 transition-all hover:bg-primary-700"
               >Entre em contato
               <MoveRightIcon class="h-6 w-6" />
             </a>

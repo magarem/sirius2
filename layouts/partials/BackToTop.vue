@@ -35,12 +35,23 @@ import { ChevronUpIcon, MoonIcon, SunIcon } from 'lucide-vue-next'
 import { onMounted, ref } from 'vue'
 
 const useTheme = useThemeStore()
-
+if (!useTheme.theme) {
+  useTheme.theme = 'light'
+}
 const toggleTheme = () => {
   const theme = useTheme.theme == 'light' ? 'dark' : 'light'
   useTheme.setTheme(theme)
   const html = document.getElementsByTagName('html')[0]
   if (theme == 'light') {
+    html.classList.remove('dark')
+  } else {
+    html.classList.add('dark')
+  }
+}
+
+const recover = () => {
+  const html = document.getElementsByTagName('html')[0]
+  if (useTheme.theme == 'light') {
     html.classList.remove('dark')
   } else {
     html.classList.add('dark')
@@ -54,22 +65,9 @@ const backToTop = (e: any) => {
 
 let isButtonVisible = ref(false)
 
-// onNuxtReady(()=>{
-//   useTheme.setTheme('dark')
-//   const html = document.getElementsByTagName('html')[0]
- 
-//     html.classList.add('dark')
-// })
-
-useTheme.setTheme('dark')
-const html = document.getElementsByTagName('html')[0]
- 
-html.classList.add('dark')
 onMounted(() => {
-
-  
-  
-
+  //localStorage.getItem("myCat")
+  recover()
   window.addEventListener('scroll', () => {
     if (window.scrollY > 72) {
       isButtonVisible.value = true

@@ -1,6 +1,6 @@
 {
     "logo": {
-        "name": "Magaweb",
+        "name": "Magaweb2",
         "img": "",
         "slogan": "soluções em TI",
         "footer": "Soluções personalizadas em desenvolvimento de sistemas web e estratégias de marketing digital. Transformamos suas ideias em realidade e impulsionamos o crescimento do seu negócio com tecnologia e criatividade. Estamos aqui para ajudar você a alcançar o sucesso online."
@@ -22,7 +22,7 @@
     "navbar": [
         {
             "label": "Início",
-            "link": "/#home"
+            "link": "/home"
         },
         {
             "label": "Sobre",
@@ -52,7 +52,7 @@
         },
         {
             "label": "Soluções",
-            "link": "/solucoes"
+            "link": "/solucoes/_dir"
         },
         {
             "label": "Trabalhos",

@@ -5,15 +5,15 @@
     class="inset-x-0 top-0 z-60 transition-all duration-500 py-4 flex items-center bg-white dark:bg-default-50 lg:bg-transparent [&.nav-sticky]:bg-white/90 [&.nav-sticky]:backdrop-blur-3xl [&.nav-sticky]:shadow-md dark:[&.nav-sticky]:bg-default-50/80"
     :class="menuPosition"
   >
-    <div class="container">
+    <div class="container text-slate-500 dark:text-default-950">
       <div class="flex items-center justify-between gap-4">
         <div class="shrink">
+          
           <!-- Navbar Brand Logo -->
           <nuxt-link to="/">
-            <span class="text-default-900 text-2xl">{{ logo.name }}</span><span class="ml-1 text-default-900 text-l/2">{{ logo.slogan }}</span>
-            <!-- <img :src="logoDark" alt="logo" class="h-10 flex dark:hidden" /> -->
-            <!-- <img :src="logoLight" alt="logo" class="h-10 hidden dark:flex" /> -->
+            <span class="text-2xl">{{ logo.name }}</span><span class="ml-1 text-l/2">{{ buildMode }}</span>
           </nuxt-link>
+      
         </div>
 
         <!-- Navigation Menu -->
@@ -21,13 +21,20 @@
           <li
             v-for="(link, idx) in navbarLink"
             :key="link.label"
-            class="menu-item text-default-800 mx-2 transition-all duration-300 hover:text-primary [&.active]:text-primary"
+            class="menu-item  mx-2 transition-all duration-300 hover:text-primary [&.active]:text-primary"
           >
-            <a
+          <nuxt-link v-if="buildMode=='generate'" external :to="`${link.link}`" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
+            {{ link.label }}
+          </nuxt-link>
+          
+          <nuxt-link v-else :to="`${link.link}`" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
+            {{ link.label }}
+          </nuxt-link>
+            <!-- <a
               class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize"
               :href="`${link.link}`"
               >{{ link.label }}</a
-            >
+            > -->
           </li>
 
           <!-- Dropdown Menu -->
@@ -146,10 +153,12 @@ import type { PropType } from 'vue'
 
 // import { navbarLinkData } from '@/utilities/layout'
 import { ChevronDownIcon, MenuIcon } from 'lucide-vue-next'
-import gumshoeMin from 'gumshoejs'
+// import gumshoeMin from 'gumshoejs'
 import { onMounted, type FunctionalComponent } from 'vue'
 
 const route = useRoute()
+const config = useRuntimeConfig();
+const buildMode = ref(config.public.buildMode);
 
 defineProps({
   logo: {
@@ -194,18 +203,18 @@ const initStickyNav = () => {
 
 const initNavLinkActive = () => {
   if (document.querySelector('.menu a')) {
-    gumshoeMin('.menu a', {
-      offset: 80
-    })
+    // gumshoeMin('.menu a', {
+    //   offset: 80
+    // })
   }
 }
 
 // Navbar Active Class
 const initMobileNavLinkActive = () => {
   if (document.querySelector('#mobile-menu nav a')) {
-    gumshoeMin('#mobile-menu nav a', {
-      offset: 80
-    })
+    // gumshoeMin('#mobile-menu nav a', {
+    //   offset: 80
+    // })
   }
 }
 

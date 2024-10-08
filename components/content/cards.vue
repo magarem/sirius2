@@ -1,9 +1,9 @@
 <template>
-  <section id="portfolio" class="py-0 ">
-    <div class="container_">
+  <section id="portfolio" class="py-0">
+    <div class="container_  text-slate-600 dark:text-slate-300">
       <div class="flex items-end justify-between -mb-4">
         <div class="max-w-2xl _mx-auto _text-center">
-          <h2 class="text-4xl font-medium capitalize text-default-950 my-0 text-left ml-4">
+          <h2 class="text-4xl font-medium capitalize  my-0 text-left ml-4">
             {{info?.title}}
           </h2>
           <p v-if="info?.desc" class="text-base ml-4 mt-1">
@@ -14,7 +14,6 @@
       <div class="">
         <div class="mb-5">
           <!-- <h2 class="text-4xl font-medium text-default-950">{{ info.title }}</h2> -->
-
           <div v-if="false" class="filters-group-wrap text-center">
             <div class="filters-group">
               <div class="filter-options flex list-none flex-wrap justify-center gap-4">
@@ -58,13 +57,19 @@
                   <div class="flex h-full items-end px-3 py-2">
                     <div class="overflow-hidden">
                       <p class="mb-2 font-medium text-white">{{ item.date }}</p>
-                      <h5 v-if="info?.show?.includes('title')" class="mb-2 text-1xl font-medium text-white">
-                        <a :href="item._path" class="text-default-950 text-lg ">
+                      <h5 v-if="info?.show?.includes('title')" class="mb-2 text-1xl font-medium">
+                      
+                        <nuxt-link v-if="buildMode=='generate'" external :to="item._path" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
                           {{ item.title }}
-                        </a>
+                        </nuxt-link>
+                        
+                        <nuxt-link v-else :to="item._path" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
+                          {{ item.title }}
+                        </nuxt-link>
+
                       </h5>
                       <p v-if="info?.show?.includes('description')"
-                        class="mb-3 truncate whitespace-nowrap text-base text-white/80 md:whitespace-normal"
+                        class="mb-3 truncate whitespace-nowrap text-base md:whitespace-normal"
                       >
                         {{ item.description.substring(0, item.description.indexOf('.') + 1)}}
                       </p>
@@ -104,7 +109,7 @@
                     <div class="overflow-hidden">
                       <p class="mb-2 font-medium text-white">{{ item.date }}</p>
                       <h5 v-if="info?.show?.includes('title')" class="mb-2 text-1xl font-medium text-white">
-                        <a :href="item._path" class="text-default-950 text-lg ">
+                        <a :href="item._path" class="text-lg ">
                           {{ item.title }}
                         </a>
                       </h5>
@@ -140,7 +145,8 @@ import { ref } from 'vue'
 // import data from "@/data.json"
 
 import type { WorkType } from '@/types/landing'
-
+const config = useRuntimeConfig();
+const buildMode = config.public.buildMode;
 const props = defineProps({
   info: {
     type: Object as PropType<any>,
@@ -158,7 +164,7 @@ const workData: WorkType[] = props.items
 let work = ref<WorkType[]>(props.items)
 let selectedCategory = ref<string>('all')
 
-let CatUniq = ref<any[]>([...new Set(props.items.map(x=>x.category))]) 
+let CatUniq = ref<any[]>([...new Set(props.items?.map(x=>x.category))]) 
 
 const filterImages = (category: string) => {
   selectedCategory.value = category

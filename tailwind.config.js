@@ -72,7 +72,7 @@ module.exports = {
                 },
             },
             {
-                defaultTheme: "dark",
+                defaultTheme: "light",
             },
         ),
     ],
