@@ -44,7 +44,7 @@
     "links": [
         {
             "label": "Início",
-            "link": "/#home"
+            "link": "/home"
         },
         {
             "label": "Sobre",
@@ -52,7 +52,7 @@
         },
         {
             "label": "Soluções",
-            "link": "/solucoes/_dir"
+            "link": "/solucoes"
         },
         {
             "label": "Trabalhos",

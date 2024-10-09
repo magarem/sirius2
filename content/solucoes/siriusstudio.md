@@ -5,7 +5,7 @@ imageposition: top
 data: 10/10/2024
 featured: 13
 ---
-novo teste studio!!!ppppp00111111tá editado reeditado222!! Conheça sim! o Sirius Studio: um CMS com flexibilidade total para se adaptar ao seu site existente. Simplifique a gestão do seu conteúdo e otimize sua presença online com uma solução que combina personalização e facilidade de uso.
+1001-novo teste studio!!!ppppp00111111tá editado reeditado222!! Conheça sim! o Sirius Studio: um CMS com flexibilidade total para se adaptar ao seu site existente. Simplifique a gestão do seu conteúdo e otimize sua presença online com uma solução que combina personalização e facilidade de uso.
 
 Aqui está o texto atualizado com a informação sobre o uso de arquivos físicos tipo MD:
 

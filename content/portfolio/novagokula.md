@@ -4,8 +4,9 @@ images: [/images/portfolio/novagokula.png]
 imageposition: side
 category: site
 tags: [marketing, comunicação]
+featured: 100
 ---
-Website da Comunidade Hare Krishna de São Paulo.
+último teste geral do dia! Website da Comunidade Hare Krishna de São Paulo.
 
 A Comunidade Hare Krishna de São Paulo procurou a Magaweb para desenvolver um website que refletisse sua espiritualidade vibrante e sua rica tradição cultural. Nosso objetivo era criar uma plataforma acessível e informativa que conectasse a comunidade local e globalmente, oferecendo um espaço virtual para divulgação de eventos, ensinamentos filosóficos e a história da comunidade.
 
@@ -26,4 +27,3 @@ Para este projeto, utilizamos uma combinação de HTML5, CSS3 e JavaScript para 
 
 Conclusão
 O website da Comunidade Hare Krishna de São Paulo é mais do que apenas uma plataforma online; é uma extensão digital de sua missão espiritual, promovendo a consciência de Krishna e unindo pessoas de diversas origens em um espaço virtual compartilhado. Estamos orgulhosos de ter contribuído para este projeto significativo e continuamos a oferecer suporte contínuo para ajudar a comunidade a crescer e prosperar.
-

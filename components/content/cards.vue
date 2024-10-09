@@ -59,11 +59,7 @@
                       <p class="mb-2 font-medium text-white">{{ item.date }}</p>
                       <h5 v-if="info?.show?.includes('title')" class="mb-2 text-1xl font-medium">
                       
-                        <nuxt-link v-if="buildMode=='generate'" external :to="item._path" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
-                          {{ item.title }}
-                        </nuxt-link>
-                        
-                        <nuxt-link v-else :to="item._path" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
+                        <nuxt-link :external="buildMode=='generate'" :to="item._path.replace('.md','')" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
                           {{ item.title }}
                         </nuxt-link>
 
