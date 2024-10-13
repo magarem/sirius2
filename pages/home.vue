@@ -58,7 +58,7 @@ const load = async (session) => {
   //     return markdownContent
   //  }else{
       const { data: arquivoMarkdown } = await useAsyncData('arquivoMarkdown', () => 
-      $fetch('/api/readMarkdown?path=' + session) );
+      $fetch('/api/readMD?path=' + session) );
       console.log('arquivoMarkdown:', arquivoMarkdown);
       
       return arquivoMarkdown.value

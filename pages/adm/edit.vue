@@ -4,23 +4,29 @@
     <input v-model="fileToEdit" @keyup.enter="read" type="text" class="textarea form-control text-light form-control-sm bg-input1">
     <label for="message" class="rounded-lg block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-5">Edição</label>
     <textarea id="txt" rows="20" class="rounded-lg textarea" v-model="txt" ></textarea>
-    <button @click="save();" type="button" class="mt-5 mb-5">Salvar</button>
+    
+
  </div>  
+ 
 </template>
 <script setup>
-const fileToEdit = ref()
+// definePageMeta({
+//   layout: 'admDefault'
+// })
+const route = useRoute()
+const fileToEdit = ref('content/' + route.query.page + '.md')
 const txt = ref("Selecione o arquivo")
 // const { data: fileData } = await useFetch('/api/read?filename=content/solucoes/2.webmarketing.md')
 // txt.value = fileData.value
 
 
 async function read() {
-    try {
-        const { data: ret } = await useFetch('/api/read?filename=' + fileToEdit.value)
-        txt.value = ret.value
-    } catch (error) {
-        console.log("Load file error");
-    }
+  try {
+      const { data: ret } = await useFetch('/api/read?filename=' + fileToEdit.value)
+      txt.value = ret.value
+  } catch (error) {
+      console.log("Load file error");
+  }
 }
 
 async function save() {
@@ -46,7 +52,7 @@ async function save() {
     console.log(error);
   }
 }
-
+read()
 </script>
 
 <style scoped>

@@ -1,0 +1,24 @@
+{
+    "title":{
+        "label": "Título",
+        "type": "text",
+        "required": true
+    },
+    "images":{
+        "label": "Imagens",
+        "type": "image-array"
+    },
+    "imageposition":{
+        "label": "Posição da imagem",
+        "type": "text"
+    },
+    "published":{
+        "label": "Publicado",
+        "type": "checkbox",
+        "options": [["sim", true], ["não", false]]
+    },
+    "date":{
+        "label": "Título",
+        "type": "date"
+    }
+}

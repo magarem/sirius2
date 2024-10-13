@@ -1,13 +1,9 @@
 ---
 title: Nova Gokula
-images: [/images/portfolio/novagokula.png]
+images:
+  - /images/portfolio/novagokula.png
 imageposition: side
-category: site
-tags: [marketing, comunicação]
-featured: 100
 ---
-último teste geral do dia! Website da Comunidade Hare Krishna de São Paulo.
-
 A Comunidade Hare Krishna de São Paulo procurou a Magaweb para desenvolver um website que refletisse sua espiritualidade vibrante e sua rica tradição cultural. Nosso objetivo era criar uma plataforma acessível e informativa que conectasse a comunidade local e globalmente, oferecendo um espaço virtual para divulgação de eventos, ensinamentos filosóficos e a história da comunidade.
 
 Sobre o Projeto

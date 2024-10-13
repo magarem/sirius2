@@ -3,7 +3,7 @@
   <li>
     <!-- <a :href="node._path" class="pr-0"><span  class="nline-block align-bottom capitalize">{{ node.title }}</span></a> -->
    
-    <nuxt-link :to="node._path" :external="buildMode=='generate'" class="pr-0">
+    <nuxt-link :to="node._path" :external="buildMode=='generate'||true" class="pr-0">
       <span  class="nline-block align-bottom capitalize">{{ node.title }}</span>
     </nuxt-link>
    

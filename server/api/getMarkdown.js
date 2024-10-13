@@ -3,12 +3,12 @@ import path from 'path';
 import matter from 'gray-matter';
 
 export default defineEventHandler(async (event) => {
-  // Pega o slug da query
-  const { slug } = getQuery(event);
-
-  // Define o caminho do arquivo baseado no slug
+  const { slug } = getQuery(event); // Obtém o slug da query string
+  console.log('slug', slug);
+  // Define o caminho para o arquivo Markdown
   const filePath = path.join(process.cwd(), 'content', `${slug}.md`);
-  console.log('filePath:', filePath);
+
+  console.log('filePath::::', filePath);
   // Verifica se o arquivo existe
   if (!fs.existsSync(filePath)) {
     return {
@@ -17,15 +17,12 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  // Lê o arquivo
+  // Lê o conteúdo do arquivo
   const fileContent = fs.readFileSync(filePath, 'utf-8');
-
-  // Usa gray-matter para separar o frontmatter do conteúdo
-  const { data, content } = matter(fileContent);
-
-  // Retorna o frontmatter e o conteúdo
+  const { data, content } = matter(fileContent); // Extrai o frontmatter e o conteúdo
+  console.log('content::::', content);
   return {
     frontmatter: data,
-    content,
+    body: content,
   };
 });

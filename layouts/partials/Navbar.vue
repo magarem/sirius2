@@ -23,13 +23,11 @@
             :key="link.label"
             class="menu-item  mx-2 transition-all duration-300 hover:text-primary [&.active]:text-primary"
           >
-          <nuxt-link v-if="buildMode=='generate'" external :to="`${link.link}`" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
+          <nuxt-link :external="buildMode=='generate'" :to="`${link.link}`" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
             {{ link.label }}
           </nuxt-link>
           
-          <nuxt-link v-else :to="`${link.link}`" class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize">
-            {{ link.label }}
-          </nuxt-link>
+         
             <!-- <a
               class="inline-flex items-center text-sm lg:text-base font-medium py-0.5 px-2 rounded-full capitalize"
               :href="`${link.link}`"
@@ -67,7 +65,7 @@
           </li> -->
         </ul>
 
-        <div v-if="btnText" class="ms-auto shrink inline-flex gap-2">
+        <div v-if="btnText&&false" class="ms-auto shrink inline-flex gap-2">
           <a
             href="#"
             class="py-1.5 px-6 inline-flex items-center gap-2 rounded-full text-base text-white bg-primary hover:bg-primary-700 transition-all duration-500"

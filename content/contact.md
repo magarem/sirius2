@@ -1,11 +1,15 @@
 ---
-title: Entre em contato
-images: ["/images/f0ca921b450a1a4591b20a167be18682-gpLarge.jpg"]
-imageposition: side
+title: Novo teste 22oo
+images:
+  - 4444----
+  - '1111'
+  - '333'
+  - img1
+  - img2
 ---
-**Entre em Contato**
-
-Estamos prontos para ajudar você a transformar suas ideias em realidade digital. Seja para desenvolver um sistema personalizado, lançar uma campanha de marketing digital eficaz, ou explorar novas possibilidades para o seu negócio, estamos aqui para oferecer soluções sob medida.
+**Entre em Contato**  
+ 
+2wwwwEstamos prontos para ajudar você a transformar suas ideias em realidade digital. Seja para desenvolver um sistema personalizado, lançar uma campanha de marketing digital eficaz, ou explorar novas possibilidades para o seu negócio, estamos aqui para oferecer soluções sob medida.
 
 ### **Nossos Contatos**
 
