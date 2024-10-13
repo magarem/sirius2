@@ -6,9 +6,9 @@
     :class="menuPosition"
   >
   
-    <div class="container text-slate-500 dark:text-default-950">
+    <div class=" text-slate-500 dark:text-default-950">
       <div class="flex items-center justify-between gap-4">
-        <div class="shrink">
+        <div class="shrink ml-5">
           
           <!-- Navbar Brand Logo -->
           <nuxt-link to="/">

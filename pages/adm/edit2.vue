@@ -2,7 +2,7 @@
     <AdmNavbar />
     <div class="grid grid-cols-12">
         <div class="col-span-2 mt-5">
-            <content-tree @onFileSelect="updateSlug" />
+            <content-tree :key="refresh" @onFileSelect="updateSlug" @appendNewFile="appendNewFile"/>
         </div>
 
         <div class="col-span-10">
@@ -147,7 +147,7 @@ const slug = ref(''); // Slug do artigo
 const frontmatter = ref({}); // Estrutura do frontmatter
 const content = ref(''); // Conteúdo do artigo
 const fullMarkdownContent = ref(''); // Conteúdo completo
-
+const refresh = ref(0)
 const toggleEdit = (x) => {
     updateDate()
 }
@@ -155,6 +155,15 @@ const toggleEdit = (x) => {
 const updateSlug = (slug_) => {
 
     slug.value = slug_;
+    loadContent()
+};
+
+const appendNewFile = (path) => {
+    slug.value = path.replace('/content/','') + '/' + +new Date
+    const ya = "title: fidelis\nimages: ['img1']\nimageposition: side\n"
+    fullMarkdownContent.value = `---\n${ya}---\n\n${content.value}`;
+    saveFullMarkdownContent()
+    refresh.value ++
     loadContent()
 };
 
@@ -230,7 +239,7 @@ const saveFullMarkdownContent = async () => {
 
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || 'Erro ao salvar.');
-        alert(data.message);
+        // alert(data.message);
     } catch (error) {
         console.error('Erro ao salvar conteúdo completo:', error);
         alert('Erro ao salvar conteúdo completo.');

@@ -1,9 +1,15 @@
 <template>
     <div>
         <ul>
+            <li>
+                Raiz <button @click="appendNewFile(item.path)" class="bg-slate-600 text-white py-1 px-2 rounded mt-2 ml-3">Novo</button>
+            </li>
+        </ul>
+        <ul>
             <li v-for="item in contentTree" :key="item.name">
+                
                 <span v-if="item.type === 'directory'">
-                    📁 {{ item.name }} <button class="bg-slate-600 text-white py-1 px-2 rounded mt-2 ml-3">Novo</button>
+                    📁 {{ item.name }} <button @click="appendNewFile(item.path)" class="bg-slate-600 text-white py-1 px-2 rounded mt-2 ml-3">Novo</button>
                     <ul v-if="item.children">
                         <li v-for="child in item.children" :key="child.name">
                             <span v-if="child.type === 'directory'">📁 {{ child.name }}</span>
@@ -31,7 +37,7 @@
 //     }
 //   });
 
-const emit = defineEmits(["onFileSelect"])
+const emit = defineEmits(["onFileSelect", 'appendNewFile'])
 const contentTree = ref([]);
 
 //   const fetchContentTree = async () => {
@@ -41,12 +47,14 @@ contentTree.value = data.value;
 
 // Função chamada ao clicar em um arquivo
 const selectFile = (filePath) => {
-    // alert(filePath)
-    // Extrai o slug do caminho do arquivo removendo a extensão .md
     const slug = filePath.replace(/^\/content\//, '').replace('.md', '');
-    // Chama a função de callback passada pela página principal
-    // props.onFileSelect(slug);
     emit('onFileSelect', slug)
+};
+
+// Função chamada ao clicar em um arquivo
+const appendNewFile = (filePath) => {
+    // const slug = filePath.replace(/^\/content\//, '').replace('.md', '');
+    emit('appendNewFile', filePath)
 };
 
 //   onMounted(() => {
@@ -57,7 +65,7 @@ const selectFile = (filePath) => {
 <style scoped>
 ul {
     list-style-type: none;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 li {
