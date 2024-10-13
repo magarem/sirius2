@@ -67,7 +67,7 @@
                       <p v-if="info?.show?.includes('description')"
                         class="mb-3 truncate whitespace-nowrap text-base md:whitespace-normal"
                       >
-                        {{ item.description.substring(0, item.description.indexOf('.') + 1)}}
+                        {{ item.description?.substring(0, item.description.indexOf('.') + 1)}}
                       </p>
                       
                       <!-- <a :href="item._path" class="text-default-950 text-sm"
@@ -112,7 +112,7 @@
                       <p v-if="info?.show?.includes('description')"
                         class="mb-3 truncate whitespace-nowrap text-base text-white/80 md:whitespace-normal"
                       >
-                        {{ item.description.substring(0, item.description.indexOf('.') + 1)}}
+                        {{ item.description?.substring(0, item.description.indexOf('.') + 1)}}
                       </p>
                       
                       <!-- <a :href="item._path" class="text-default-950 text-sm"

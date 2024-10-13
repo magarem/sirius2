@@ -26,25 +26,32 @@
                                 class="border p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
                                 type="text" placeholder="Digite o slug do artigo" />
                         </div>
-                        <div>
-                            <button @click="loadContent"
-                                class="bg-blue-500 text-white ml-3 py-2 px-4 rounded _mt-2">>></button>
-                        </div>
                         <!-- Abas para alternar entre Formulário e Conteúdo Completo -->
                         <div class="mb-5">
                             <div class="flex space-x-1 _mt-4">
-                                <button
-                                    :class="{ 'bg-blue-500 text-white': activeTab === 'form', 'bg-gray-200 text-slate-900': activeTab !== 'form' }"
-                                    @click="activeTab = 'form'" class="py-2 px-4 rounded">Edição</button>
-                                <button
-                                    :class="{ 'bg-blue-500 text-white': activeTab === 'content', 'bg-gray-200 text-slate-900': activeTab !== 'content' }"
-                                    @click="activeTab = 'content'" class="py-2 px-4 rounded">Fonte</button>
+                                <button @click="loadContent"
+                                class="bg-blue-500 text-white ml-3 py-2 px-4 rounded _mt-2">Carregar</button>
+                                <button v-if="slug&&!slug.includes('_dir')"
+                                    @click="deleteFile" class="bg-red-900 text-white py-2 px-4 rounded">Excluir</button>
+                                
+                                <button v-if="slug&&!slug.includes('_dir')"
+                                    @click="renameFile" class="bg-yellow-900 text-white py-2 px-4 rounded">Renomear</button>
                             </div>
                         </div>
                     </div>
                 </div>
+<div v-if="slug">
 
-
+<div>
+    <button
+        :class="{ 'bg-blue-500 text-white': activeTab === 'form', 'bg-gray-200 text-slate-900': activeTab !== 'form' }"
+        @click="activeTab = 'form'" class="py-2 px-4 rounded">Edição</button>
+    
+    <button
+        :class="{ 'bg-blue-500 text-white': activeTab === 'content', 'bg-gray-200 text-slate-900': activeTab !== 'content' }"
+        @click="activeTab = 'content'" class="py-2 px-4 rounded">Fonte</button> 
+                                
+</div>
 
                 <!-- Conteúdo da Aba: Formulário -->
                 <div v-if="activeTab === 'form'" class="grid md:grid-cols-3 gap-4">
@@ -128,6 +135,9 @@
 
     </div>
 
+</div>
+
+
 </template>
 
 <script setup>
@@ -148,6 +158,12 @@ const frontmatter = ref({}); // Estrutura do frontmatter
 const content = ref(''); // Conteúdo do artigo
 const fullMarkdownContent = ref(''); // Conteúdo completo
 const refresh = ref(0)
+
+function getDirectory(filePath) {
+    // Encontra a última barra "/" e retorna a parte anterior a ela
+    return filePath.substring(0, filePath.lastIndexOf('/'));
+}
+
 const toggleEdit = (x) => {
     updateDate()
 }
@@ -158,10 +174,35 @@ const updateSlug = (slug_) => {
     loadContent()
 };
 
+const deleteFile = async (path) => {
+    const response = await fetch('/api/deleteFile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filePath: slug.value }),
+    });
+    // slug.value = getDirectory(slug.value) + '/' + '_dir'
+    slug.value = ''
+    // loadContent()
+    refresh.value++
+};
+
+const renameFile = async (path) => {
+    const newFilePath = prompt("Digite o novo nome")
+    const response = await fetch('/api/renameFile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ oldFileName: slug.value + '.md', newFileName: newFilePath + '.md'}),
+    });
+    console.log(22, response)
+    slug.value = getDirectory(slug.value) + '/' + newFilePath
+    refresh.value++
+    loadContent()
+};
+
 const appendNewFile = (path) => {
     slug.value = path.replace('/content/','') + '/' + +new Date
     const ya = "title: fidelis\nimages: ['img1']\nimageposition: side\n"
-    fullMarkdownContent.value = `---\n${ya}---\n\n${content.value}`;
+    fullMarkdownContent.value = `---\n${ya}---\n`;
     saveFullMarkdownContent()
     refresh.value ++
     loadContent()

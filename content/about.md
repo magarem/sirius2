@@ -1,12 +1,11 @@
 ---
 title: Quem somos
 images:
-  - casas de fidelis
   - /images/equipe-em-processo-de-criacao.jpg
   - /images/quemsomos2.jpg
 imageposition: side
 ---
-teste final de hoje! Jay Krsina!!, somos apaixonados por criar soluções digitais inovadoras que transformam ideias em realidade. Com uma abordagem centrada no cliente e um olhar atento para as tendências do mercado, oferecemos serviços completos de desenvolvimento de sistemas para a web e estratégias de webmarketing.
+2teste final de hoje! Jay Krsina!!, somos apaixonados por criar soluções digitais inovadoras que transformam ideias em realidade. Com uma abordagem centrada no cliente e um olhar atento para as tendências do mercado, oferecemos serviços completos de desenvolvimento de sistemas para a web e estratégias de webmarketing.
 
 Nosso time é composto por desenvolvedores altamente qualificados e especialistas em marketing digital que trabalham em conjunto para entregar projetos personalizados, eficientes e orientados a resultados. Desde a concepção de websites modernos e funcionais até a implementação de estratégias de marketing digital que aumentam a visibilidade e o alcance dos nossos clientes, estamos comprometidos em proporcionar experiências únicas e valiosas.
 
