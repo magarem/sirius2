@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    if (to.path == '/') {
+    if (false&&to.path == '/') {
         return navigateTo('/home')
       }
   });

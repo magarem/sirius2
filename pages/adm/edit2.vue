@@ -2,9 +2,8 @@
     <AdmNavbar />
     <div class="grid grid-cols-12">
         <div class="col-span-2 mt-5">
-            <content-tree :key="refresh" @onFileSelect="updateSlug" @appendNewFile="appendNewFile"/>
+            <content-tree :key="refresh" @onFileSelect="updateSlug" @appendNewFile="appendBlankNewFile" />
         </div>
-
         <div class="col-span-10">
             <div class="_container m-5" style="margin-bottom: 70px;">
                 <!-- Modal para selecionar imagem -->
@@ -16,7 +15,6 @@
                         </button>
                     </div>
                 </div>
-
 
                 <!-- Slug e botão de carregar -->
                 <div class="mb-2 w-[400px]">
@@ -30,112 +28,133 @@
                         <div class="mb-5">
                             <div class="flex space-x-1 _mt-4">
                                 <button @click="loadContent"
-                                class="bg-blue-500 text-white ml-3 py-2 px-4 rounded _mt-2">Carregar</button>
-                                <button v-if="slug&&!slug.includes('_dir')"
-                                    @click="deleteFile" class="bg-red-900 text-white py-2 px-4 rounded">Excluir</button>
-                                
-                                <button v-if="slug&&!slug.includes('_dir')"
-                                    @click="renameFile" class="bg-yellow-900 text-white py-2 px-4 rounded">Renomear</button>
+                                    class="bg-green-500 text-white ml-3 py-2 px-4 rounded _mt-2">Carregar</button>
+                                <button v-if="slug && !slug.includes('_dir')" @click="renameFile"
+                                    class="bg-yellow-500 text-white py-2 px-4 rounded">Renomear</button>
+                                <button v-if="slug && !slug.includes('_dir')" @click="deleteFile"
+                                    class="bg-red-500 text-white py-2 px-4 rounded">Excluir</button>
                             </div>
                         </div>
                     </div>
                 </div>
-<div v-if="slug">
+                <div v-if="slug">
+                    <div>
+                        <button
+                            :class="{ 'bg-gray-200 text-slate-900': activeTab === 'form', 'bg-zinco-500 text-white': activeTab !== 'form' }"
+                            @click="activeTab = 'form'" class="py-2 px-4 rounded">Edição</button>
 
-<div>
-    <button
-        :class="{ 'bg-blue-500 text-white': activeTab === 'form', 'bg-gray-200 text-slate-900': activeTab !== 'form' }"
-        @click="activeTab = 'form'" class="py-2 px-4 rounded">Edição</button>
-    
-    <button
-        :class="{ 'bg-blue-500 text-white': activeTab === 'content', 'bg-gray-200 text-slate-900': activeTab !== 'content' }"
-        @click="activeTab = 'content'" class="py-2 px-4 rounded">Fonte</button> 
-                                
-</div>
+                        <button
+                            :class="{ 'bg-gray-200 text-slate-900': activeTab === 'content', 'bg-zinco-500 text-white': activeTab !== 'content' }"
+                            @click="activeTab = 'content'" class="py-2 px-4 rounded">Fonte</button>
 
-                <!-- Conteúdo da Aba: Formulário -->
-                <div v-if="activeTab === 'form'" class="grid md:grid-cols-3 gap-4">
-                    <div class="md:col-span-2 ">
-                        <!-- <label class="block mb-2">Conteúdo:</label> -->
-                        <textarea v-model="content"
-                            class="p-2 w-full h-full bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
-                            placeholder="Digite o conteúdo do artigo"></textarea>
-                        <!-- <button @click="updateRawFile" class="bg-green-500 text-white py-2 px-4 rounded mt-4">Salvar</button> -->
                     </div>
 
-                    <div class="md:col-span-1">
-                        <!-- Campos do Frontmatter Dinâmicos -->
-                        <div v-for="(field, key) in frontmatter" :key="key" class="mt-4">
-                            <label class="block mb-2">{{ field.label }}:</label>
+                    <!-- Conteúdo da Aba: Formulário -->
+                    <div v-if="activeTab === 'form'" class="grid md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2 ">
+                            <!-- <label class="block mb-2">Conteúdo:</label> -->
+                            <textarea v-model="content"
+                                class="p-2 w-full h-full bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
+                                placeholder="Digite o conteúdo do artigo"></textarea>
+                            <!-- <button @click="updateRawFile" class="bg-green-500 text-white py-2 px-4 rounded mt-4">Salvar</button> -->
+                        </div>
 
-                            <!-- Campo de Texto Simples -->
-                            <input v-if="field.type === 'text'" v-model="field.value" @blur="toggleEdit($event)"
-                                class=" p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
-                                type="text" :placeholder="`Digite ${field.label}`" />
+                        <div class="md:col-span-1">
+                            <!-- Campos do Frontmatter Dinâmicos -->
+                            <div v-for="(field, key) in frontmatter" :key="key" class="mt-4">
+                                <label class="block mb-2">{{ field.label }}:</label>
 
-                            <!-- Campo de Textarea -->
-                            <textarea v-if="field.type === 'textarea'" v-model="field.value" @blur="toggleEdit($event)"
-                                class="border p-2 w-full h-32  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
-                                :placeholder="`Digite ${field.label}`"></textarea>
+                                <!-- Campo de Texto Simples -->
+                                <input v-if="field.type === 'text'" v-model="field.value"
+                                    @blur="toggleEdit(key + ',' + field.value)"
+                                    class=" p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
+                                    type="text" :placeholder="`Digite ${field.label}`" />
 
-                            <!-- Checkbox -->
-                            <input v-if="field.type === 'checkbox'" v-model="field.value" @blur="toggleEdit($event)" type="checkbox" />
+                                <!-- Campo de Textarea -->
+                                <textarea v-if="field.type === 'textarea'" v-model="field.value"
+                                    @blur="toggleEdit($event)"
+                                    class="border p-2 w-full h-32  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
+                                    :placeholder="`Digite ${field.label}`"></textarea>
 
-                            <!-- Campo de Data -->
-                            <input v-if="field.type === 'date'" v-model="field.value"
-                                @blur="toggleEdit($event)"
-                                class="border p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
-                                type="date" />
+                                <!-- Checkbox -->
+                                <input v-if="field.type === 'checkbox'" v-model="field.value" @blur="toggleEdit($event)"
+                                    type="checkbox" />
 
-                            <!-- Campo de Array de Imagens com botões "+" e "-" -->
-                            <div v-if="field.type === 'image-array'" class="space-y-2">
-                                <div v-for="(image, index) in field.value" :key="index"
-                                    class="flex items-center space-x-2">
-                                    <input v-model="field.value[index]" @blur="toggleEdit($event)"
-                                        class="border p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
-                                        type="text" :placeholder="`Digite a URL da imagem ${index + 1}`" />
-                                    <button v-if="field.value.length > 1" @click="removeImage(key, index)" 
-                                        class="bg-red-500 text-white px-2 py-1 rounded">-</button>
-                                    <button @click="moveUp(key, index)" :disabled="index === 0"
-                                        class="bg-gray-500 text-white py-1 px-2 rounded">↑</button>
-                                    <button @click="moveDown(key, index)"
-                                        :disabled="index === frontmatter.images.length - 1"
-                                        class="bg-gray-500 text-white py-1 px-2 rounded">↓</button>
-                                    <button @click="openModal(index)"
-                                        class="bg-blue-500 text-white py-1 px-2 ml-2 rounded">
-                                        >
-                                    </button>
+                                <!-- Campo de Data -->
+                                <input v-if="field.type === 'date'" v-model="field.value" @blur="toggleEdit($event)"
+                                    class="border p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
+                                    type="date" />
+
+                                <!-- Campo de Array com botões "+" e "-" -->
+                                <div v-if="field.type === 'array'" class="space-y-2">
+                                    <div v-for="(image, index) in field.value" :key="index"
+                                        class="flex items-center space-x-2">
+
+                                        <input v-model="field.value[index]" @blur="toggleEdit($event)"
+                                            class="border p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
+                                            type="text" :placeholder="`Digite a URL da imagem ${index + 1}`" />
+                                        <button v-if="field.value.length > 1" @click="removeImage(key, index)"
+                                            class="bg-red-500 text-white px-2 py-1 rounded">-</button>
+                                        <button @click="moveUp(key, index)" :disabled="index === 0"
+                                            class="bg-gray-500 text-white py-1 px-2 rounded">↑</button>
+                                        <button @click="moveDown(key, index)"
+                                            :disabled="index === frontmatter.images.length - 1"
+                                            class="bg-gray-500 text-white py-1 px-2 rounded">↓</button>
+
+                                    </div>
+                                    <button @click="addItem(key)"
+                                        class="bg-green-500 text-white px-2 py-1 rounded">+</button>
                                 </div>
-                                <button @click="addImage(key)"
-                                    class="bg-green-500 text-white px-2 py-1 rounded">+</button>
+
+                                <!-- Campo de Array de Imagens com botões "+" e "-" -->
+                                <div v-if="field.type === 'image-array'" class="space-y-2">
+                                    <div v-for="(image, index) in field.value" :key="index"
+                                        class="flex items-center space-x-2">
+                                        <input v-model="field.value[index]" @blur="toggleEdit($event)"
+                                            class="border p-2 w-full  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"
+                                            type="text" :placeholder="`Digite a URL da imagem ${index + 1}`" />
+                                        <button v-if="field.value.length > 1" @click="removeImage(key, index)"
+                                            class="bg-red-500 text-white px-2 py-1 rounded">-</button>
+                                        <button @click="moveUp(key, index)" :disabled="index === 0"
+                                            class="bg-gray-500 text-white py-1 px-2 rounded">↑</button>
+                                        <button @click="moveDown(key, index)"
+                                            :disabled="index === frontmatter.images.length - 1"
+                                            class="bg-gray-500 text-white py-1 px-2 rounded">↓</button>
+                                        <button @click="openModal(index)"
+                                            class="bg-blue-500 text-white py-1 px-2 ml-2 rounded">
+                                            >
+                                        </button>
+                                    </div>
+                                    <button @click="addItem(key)"
+                                        class="bg-green-500 text-white px-2 py-1 rounded">+</button>
+                                </div>
+
                             </div>
 
                         </div>
 
                     </div>
 
+                    <!-- Conteúdo da Aba: Conteúdo Completo -->
+                    <div v-else-if="activeTab === 'content'" class="mt-4">
+                        <!-- <label class="block mb-2">Arquivo Markdown Completo:</label> -->
+                        <textarea v-model="fullMarkdownContent"
+                            class=" p-2 w-full h-64  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"></textarea>
+                    </div>
                 </div>
 
-                <!-- Conteúdo da Aba: Conteúdo Completo -->
-                <div v-else-if="activeTab === 'content'" class="mt-4">
-                    <label class="block mb-2">Arquivo Markdown Completo:</label>
-                    <textarea v-model="fullMarkdownContent"
-                        class="border p-2 w-full h-64  bg-white dark:bg-slate-800 rounded-lg ring-1 ring-slate-900/5 shadow-xl"></textarea>
+
+                <div class="fixed bottom-0 min-w-full bg-slate-600 text-slate-200 h-[50px]">
+                    <button @click="saveFullMarkdownContent"
+                        class="bg-blue-500 text-white py-1 px-4 rounded mt-2 ml-3">Salvar página</button>
                 </div>
+
             </div>
 
-
-            <div class="fixed bottom-0 min-w-full bg-slate-600 text-slate-200 h-[50px]">
-                <button @click="saveFullMarkdownContent"
-                    class="bg-green-500 text-white py-1 px-4 rounded mt-2 ml-3">Salvar página</button>
-            </div>
 
         </div>
 
-
     </div>
-
-</div>
 
 
 </template>
@@ -158,6 +177,32 @@ const frontmatter = ref({}); // Estrutura do frontmatter
 const content = ref(''); // Conteúdo do artigo
 const fullMarkdownContent = ref(''); // Conteúdo completo
 const refresh = ref(0)
+var pageAlredyExists = false
+// Função para gerar o slug
+const gerarSlug = (titulo) => {
+    return titulo
+        .toLowerCase()
+        .normalize('NFD') // Normaliza para remover acentos
+        .replace(/[\u0300-\u036f]/g, '') // Remove marcas diacríticas
+        .replace(/[^\w\s-]/g, '') // Remove caracteres especiais
+        .trim() // Remove espaços extras do início e do fim
+        .replace(/\s+/g, '-') // Substitui espaços por hifens
+        .replace(/-+/g, '-'); // Substitui múltiplos hifens por um único hifen
+};
+
+function getFileName() {
+    const now = new Date();
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Mês é zero-indexado
+    const year = now.getFullYear();
+
+    const fileName = `${hours}-${minutes}-${seconds}-${day}-${month}-${year}`;
+    return fileName;
+}
 
 function getDirectory(filePath) {
     // Encontra a última barra "/" e retorna a parte anterior a ela
@@ -165,6 +210,12 @@ function getDirectory(filePath) {
 }
 
 const toggleEdit = (x) => {
+    if (x.split(',')[0] == 'title') {
+        if (!pageAlredyExists){
+            slug.value = slug.value?.split('/')[0] + '/' + gerarSlug(x.split(',')[1]); // Atualiza o slug
+        }
+    }
+    console.log(x);
     updateDate()
 }
 // Função que será chamada ao clicar em um arquivo na árvore
@@ -175,15 +226,19 @@ const updateSlug = (slug_) => {
 };
 
 const deleteFile = async (path) => {
-    const response = await fetch('/api/deleteFile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filePath: slug.value }),
-    });
-    // slug.value = getDirectory(slug.value) + '/' + '_dir'
-    slug.value = ''
-    // loadContent()
-    refresh.value++
+    const confirm = window.confirm("confirma exclusão")
+    if (confirm) {
+        const response = await fetch('/api/deleteFile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filePath: slug.value }),
+        });
+        // slug.value = getDirectory(slug.value) + '/' + '_dir'
+        slug.value = ''
+        // loadContent()
+        refresh.value++
+    }
+
 };
 
 const renameFile = async (path) => {
@@ -191,7 +246,7 @@ const renameFile = async (path) => {
     const response = await fetch('/api/renameFile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ oldFileName: slug.value + '.md', newFileName: newFilePath + '.md'}),
+        body: JSON.stringify({ oldFileName: slug.value + '.md', newFileName: newFilePath + '.md' }),
     });
     console.log(22, response)
     slug.value = getDirectory(slug.value) + '/' + newFilePath
@@ -199,13 +254,53 @@ const renameFile = async (path) => {
     loadContent()
 };
 
-const appendNewFile = (path) => {
-    slug.value = path.replace('/content/','') + '/' + +new Date
+const appendBlankNewFile = async (path) => {
+    slug.value = path.replace('/content/','') + '/'
+
+    // slug.value = path?.replace('/content/', '') + '/' + data.fileName
+    // slug.value = path?.replace('/content/', '') + '/' + +new Date
+    // const ya = "title: fidelis\nimages: ['img1']\nimageposition: side\n"
+    const ya = `
+title:
+images: []
+imageposition: side
+`
+    console.log(ya);
+    fullMarkdownContent.value = `---\n${ya.trim()}\n---\n`;
+   
+    const response = await fetch('/api/yaml-to-json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ yamlString: ya.trim() })
+    });
+    const data = await response.json();
+    // jsonResult.value = data.data;
+    console.log('data.data', data.data);
+
+    loadContent({
+        content: '',
+        frontmatter: data.data
+    })
+    // saveFullMarkdownContent()
+    // refresh.value++
+    // loadContent()
+    // await fetch(`/api/addFile?dirName=${path?.replace('/content/', '')}&newFileName=${data.fileName}`);
+};
+
+const appendNewFile = async (path) => {
+    const response = await fetch('/api/generateFileName?dir=' + path?.replace('/content/', ''));
+    const data = await response.json();
+    console.log(data.fileName); // Exemplo: 12_10_2024_1.txt
+    slug.value = path?.replace('/content/', '') + '/' + data.fileName
+    // slug.value = path?.replace('/content/', '') + '/' + +new Date
     const ya = "title: fidelis\nimages: ['img1']\nimageposition: side\n"
     fullMarkdownContent.value = `---\n${ya}---\n`;
     saveFullMarkdownContent()
-    refresh.value ++
+    refresh.value++
     loadContent()
+    await fetch(`/api/addFile?dirName=${path?.replace('/content/', '')}&newFileName=${data.fileName}`);
 };
 
 // Função para mover a imagem para cima
@@ -236,29 +331,37 @@ const removeImage = (key, index) => {
 };
 
 // Função para carregar conteúdo baseado no slug
-const loadContent = async () => {
+const loadContent = async (data = '') => {
     if (!slug.value) {
         alert('Por favor, insira um slug válido.');
         return;
     }
     try {
-        const response = await fetch(`/api/readMarkdown?slug=${slug.value}`);
-        const data = await response.json();
-        // var newData = {}
-        // for (const key in frontmatterFields) {
-        //     if (data.frontmatter[key] !== undefined) {
-        //         frontmatterFields[key].value = data.frontmatter[key];
-        //     }
-        // }
-        // frontmatter.value = data.frontmatter;
-        const combined = {};
-        for (const key in frontmatterFields) {
-            if (data.frontmatter[key] !== undefined) {
-                combined[key] = { ...frontmatterFields[key], value: data.frontmatter[key] };
+        if (data) {
+            pageAlredyExists = false
+            const combined = {};
+            for (const key in frontmatterFields) {
+                if (data?.frontmatter[key] !== undefined) {
+                    combined[key] = { ...frontmatterFields[key], value: data.frontmatter[key] };
+                }
             }
+            frontmatter.value = combined;
+            content.value = data.content;
+        } else {
+            pageAlredyExists = true
+            const response = await fetch(`/api/readMarkdown?slug=${slug.value}`);
+            const data = await response.json();
+            console.log('data>>:', data);
+            const combined = {};
+            for (const key in frontmatterFields) {
+                if (data?.frontmatter[key] !== undefined) {
+                    combined[key] = { ...frontmatterFields[key], value: data.frontmatter[key] };
+                }
+            }
+            frontmatter.value = combined;
+            content.value = data.content;
         }
-        frontmatter.value = combined;
-        content.value = data.content;
+        
     } catch (error) {
         console.error(error);
         alert('Falha ao carregar o conteúdo.');
@@ -267,24 +370,31 @@ const loadContent = async () => {
 
 // Função para converter frontmatter para YAML e salvar
 const saveFullMarkdownContent = async () => {
-    try {
-        //   const yamlFrontmatter = yaml.dump(Object.fromEntries(Object.entries(frontmatter.value).map(([key, field]) => [key, field.value]))); // Converte JSON para YAML
-        //   const fullContent = `---\n${yamlFrontmatter}---\n\n${content.value}`;
-        //   fullMarkdownContent.value = fullContent;
-
-        const response = await fetch('/api/saveFullMarkdown', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: slug.value, fullMarkdownContent: fullMarkdownContent.value.trim() }),
-        });
-
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.message || 'Erro ao salvar.');
-        // alert(data.message);
-    } catch (error) {
-        console.error('Erro ao salvar conteúdo completo:', error);
-        alert('Erro ao salvar conteúdo completo.');
+    if (slug.value.charAt(slug.value.length - 1) == '/'){
+        alert("digite o título da página")
     }
+    else{
+        try {
+            //   const yamlFrontmatter = yaml.dump(Object.fromEntries(Object.entries(frontmatter.value).map(([key, field]) => [key, field.value]))); // Converte JSON para YAML
+            //   const fullContent = `---\n${yamlFrontmatter}---\n\n${content.value}`;
+            //   fullMarkdownContent.value = fullContent;
+
+            const response = await fetch('/api/saveFullMarkdown', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ slug: slug.value, fullMarkdownContent: fullMarkdownContent.value.trim() }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || 'Erro ao salvar.');
+            // alert(data.message);
+        } catch (error) {
+            console.error('Erro ao salvar conteúdo completo:', error);
+            alert('Erro ao salvar conteúdo completo.');
+        }
+        refresh.value++ 
+    }
+   
 };
 
 const updateRawFile = () => {
@@ -325,8 +435,8 @@ const closeModal = () => {
 };
 
 // Função para adicionar nova imagem ao array
-const addImage = () => {
-    frontmatter.value.images.value.push(''); // Adiciona um novo campo de URL vazio
+const addItem = (key) => {
+    frontmatter.value[key].value.push(''); // Adiciona um novo campo de URL vazio
 };
 
 // Função para selecionar uma imagem e atualizá-la no array
@@ -359,6 +469,15 @@ const updateDate = () => {
 watch([frontmatter, content], () => {
     updateDate()
 }, { immediate: true });
+
+// Watch para observar mudanças no título e gerar o slug
+var a = 0
+watch(frontmatter, (novoValor) => {
+    a++
+    console.log("---", a);
+    // slug.value = slug.value?.split('/')[0] + '/' + gerarSlug(novoValor); // Atualiza o slug
+});
+
 </script>
 
 <style scoped>

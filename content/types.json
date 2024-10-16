@@ -20,5 +20,9 @@
     "date":{
         "label": "Título",
         "type": "date"
+    },
+    "files_order": {
+        "label": "Arquivos",
+        "type": "array"
     }
 }

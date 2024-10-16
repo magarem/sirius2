@@ -45,47 +45,13 @@ const formatDate = (date) => {
   return new Date(date).toLocaleDateString('en', options)
 }
 const load = async (session) => {
-  // const { data } = await useAsyncData('data-' + session, () => queryContent(session).find())
-  // data.value = data.value.filter(x => !x._file?.includes("_dir.md"))
  
-   
-  // const isDir = await $fetch(`/api/isDir?filename=content/${session}`)
-  console.log("!oi!");
+      // const { data: arquivoMarkdown } = await useAsyncData('arquivoMarkdown', () => 
+      // $fetch('/api/readMD?path=' + session) );
+      // console.log('arquivoMarkdown:', arquivoMarkdown.value);
+      const data = $fetch('/api/readMD?path=' + session)
+      return data
   
-  //  if (isDir){
-  //     const { data: markdownContent } = await useAsyncData('markdownContent', () => 
-  //     $fetch('/api/readMarkdown?subdir=meu-subdiretorio'));
-  //     return markdownContent
-  //  }else{
-      const { data: arquivoMarkdown } = await useAsyncData('arquivoMarkdown', () => 
-      $fetch('/api/readMD?path=' + session) );
-      console.log('arquivoMarkdown:', arquivoMarkdown);
-      
-      return arquivoMarkdown.value
-  //  }
-
-  //  const { data, pending, error } = await useFetch('/api/readContentDir?dir='+session)
-   
-  //  const result = await $fetch(`/api/read?filename=content/${session}.md`)
-  //  console.log('result:', result);
-  
-  //  data2.value.push(await parseMarkdown(result))
-  
-  // if (isDir){
-  //   console.log("essa é dir");
-  //   resultGeral.value = [...data.value]
-  // }else{
-  //   console.log("essa é não é dir");
-  //   resultGeral.value = [...data2.value]
-  // }
-    
-
-
-  // // const { data, pending, error } = await useFetch('/api/readContentDir?dir='+session)
- 
-  // console.log('resultGeral.value:', resultGeral.value);
- 
-  // return resultGeral.value
 }
 
 // const { data: destaques } = await useAsyncData('destaques', () => queryContent('/').where({ featured: { $gt: -1 } }).without(["body"]).sort({ featured: 1, $numeric: true }).find())

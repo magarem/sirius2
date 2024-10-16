@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li>
-                Raiz <button @click="appendNewFile(item.path)" class="bg-slate-600 text-white py-1 px-2 rounded mt-2 ml-3">Novo</button>
+                Raiz <button @click="appendNewFile(item?.path||'')" class="bg-slate-600 text-white py-1 px-2 rounded mt-2 ml-3">Novo</button>
             </li>
         </ul>
         <ul>

@@ -1,7 +1,12 @@
 ---
 title: Portfólio
-images: ['/images/products/desenvolvimentoweb_horizontal.webp']
+images:
+  - /images/products/desenvolvimentoweb_horizontal.webp
 imageposition: hide
-data: 10/10/2024
+files_order:
+  - '14_10_2024_3'
+  - novagokula
+  - oxidereport
+  - espacohimalaya
 ---
 <list title="Portfólio"/>

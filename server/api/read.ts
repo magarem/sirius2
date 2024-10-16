@@ -5,7 +5,7 @@ import * as fs from 'node:fs'
 
 export default defineEventHandler( (event) => {
     const query = getQuery(event)
-    console.log(111, query);
+    console.log(1112, query);
     const filename = query.filename
     const read = (filename) => {
         const data =  fs.readFileSync( filename, 'utf-8')
