@@ -16,7 +16,7 @@
 
 
 
-    <div class="container" v-if="result[0]?.imageposition == 'top'">
+    <div class="container" v-if="result[0]?.imageposition == 'top'||result[0]?.imageposition == undefined">
       <div v-if="result[0]?.images.length == 1" class="_items-center ">
         <div class="mb-5">{{  }}
           <img :src="result[0]?.images[0]" class="object-cover w-full h-[400px] max-h-[400px] rounded-xl mx-auto" alt="" />

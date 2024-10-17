@@ -8,5 +8,22 @@ files_order:
   - novagokula
   - oxidereport
   - espacohimalaya
+data_schema:
+  title:
+    label: titulo
+    type: text
+    value: ''
+  images:
+    label: Images
+    type: image-array
+    value: []
+  imageposition:
+    label: posicao
+    type: text
+    value: ''
+  norma:
+    label: Norma
+    type: text
+    value: ''
 ---
 <list title="Portfólio"/>

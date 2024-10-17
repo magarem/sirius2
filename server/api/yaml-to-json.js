@@ -12,11 +12,11 @@ export default defineEventHandler(async (event) => {
     console.log(body.yamlString);
     // Convertendo a string YAML para JSON
     const jsonObject = await yaml.load(body.yamlString);
-    console.log(jsonObject);
+    console.log("jsonObject", jsonObject)
     // Retornando o objeto JSON como resposta
     return {
       success: true,
-      data: jsonObject
+      data: JSON.stringify(jsonObject)
     };
   } catch (error) {
     return sendError(event, new Error(`Erro ao converter YAML para JSON: ${error.message}`));

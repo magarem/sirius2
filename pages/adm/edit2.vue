@@ -15,7 +15,6 @@
                         </button>
                     </div>
                 </div>
-
                 <!-- Slug e botão de carregar -->
                 <div class="mb-2 w-[400px]">
                     <div class="grid grid-cols-6">
@@ -169,14 +168,15 @@ import ImageSelector from '../components/ImageSelector.vue'; // Importe o compon
 import AdmNavbar from '@/layouts/partials/AdmNavbar.vue'
 //   import ContentTree from '@/components/ContentTree.vue'
 import ContentTree from '@/components/ContentTree.vue';
-import frontmatterFields from '@/content/types.json'
-
+// import frontmatterFields from '@/content/types.json'
+import * as YAML from 'yaml'
 const activeTab = ref('form'); // Aba ativa
 const slug = ref(''); // Slug do artigo
 const frontmatter = ref({}); // Estrutura do frontmatter
 const content = ref(''); // Conteúdo do artigo
 const fullMarkdownContent = ref(''); // Conteúdo completo
 const refresh = ref(0)
+const frontmatterFields_keys = ref({})
 var pageAlredyExists = false
 // Função para gerar o slug
 const gerarSlug = (titulo) => {
@@ -260,28 +260,39 @@ const appendBlankNewFile = async (path) => {
     // slug.value = path?.replace('/content/', '') + '/' + data.fileName
     // slug.value = path?.replace('/content/', '') + '/' + +new Date
     // const ya = "title: fidelis\nimages: ['img1']\nimageposition: side\n"
-    const ya = `
-title:
-images: []
-imageposition: side
-`
-    console.log(ya);
-    fullMarkdownContent.value = `---\n${ya.trim()}\n---\n`;
+//     const ya = `
+// title:
+// images: []
+// imageposition: side
+    console.log(slug.value);
+    const ya = {...await loadDataSchema()}
+    console.log('ya', ya);
+    const YAMLfile = YAML.stringify(frontmatterFields_keys.value);
+    console.log('YAMLfile', YAMLfile);
+    fullMarkdownContent.value = `---\n${YAMLfile}\n---\n`;
    
-    const response = await fetch('/api/yaml-to-json', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ yamlString: ya.trim() })
-    });
-    const data = await response.json();
-    // jsonResult.value = data.data;
-    console.log('data.data', data.data);
+    // const response = await fetch('/api/yaml-to-json', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ yamlString: ya })
+    // });
 
+    // const doc = yaml.load(ya)
+    // const data = await response.json();
+    // jsonResult.value = data.data;
+    // console.log('data.data', data.data);
+
+
+    console.log({
+        content: '',
+        frontmatter: ya
+    });
+    // fullMarkdownContent.value = `---\n${frontmatterFields_keys.value}---\n`;
     loadContent({
         content: '',
-        frontmatter: data.data
+        frontmatter: ya
     })
     // saveFullMarkdownContent()
     // refresh.value++
@@ -330,24 +341,53 @@ const removeImage = (key, index) => {
     }
 };
 
+
+const loadDataSchema = async () => {
+    const response = await fetch(`/api/readMarkdown?slug=${slug.value.split('/')[0]+'/_dir'}`);
+    console.log(`/api/readMarkdown?slug=${slug.value.split('/')[0]+'/_dir'}`);
+    var frontmatterFields = await response.json()
+    frontmatterFields = frontmatterFields.frontmatter.data_schema
+
+    console.log('frontmatterFields:', frontmatterFields);
+    console.log('frontmatterFields:', Object.keys(frontmatterFields));
+
+    Object.keys(frontmatterFields).map(x=>{
+        frontmatterFields_keys.value[x] = ''
+    })
+
+    console.log('frontmatterFields_keys', frontmatterFields_keys.value);
+
+    return frontmatterFields
+}
+
 // Função para carregar conteúdo baseado no slug
 const loadContent = async (data = '') => {
+   
     if (!slug.value) {
         alert('Por favor, insira um slug válido.');
         return;
     }
     try {
         if (data) {
+            // var frontmatterFields = data.frontmatter
+            const frontmatterFields = {...await loadDataSchema()}
+            // Object.keys(frontmatterFields).map(x=>{
+            //     frontmatterFields_keys.value[x] = ''
+            // })
+            
             pageAlredyExists = false
             const combined = {};
             for (const key in frontmatterFields) {
                 if (data?.frontmatter[key] !== undefined) {
-                    combined[key] = { ...frontmatterFields[key], value: data.frontmatter[key] };
+                    combined[key] = { ...frontmatterFields[key], value: data.frontmatter[key].value };
                 }
             }
             frontmatter.value = combined;
             content.value = data.content;
         } else {
+            console.log('loadDataSchema()', await loadDataSchema());
+            const frontmatterFields = {...await loadDataSchema()}
+            console.log('frontmatterFields:::>', frontmatterFields);
             pageAlredyExists = true
             const response = await fetch(`/api/readMarkdown?slug=${slug.value}`);
             const data = await response.json();
@@ -461,7 +501,7 @@ const updateDate = () => {
             })
         )
     );
-
+    console.log(yamlFrontmatter);
     // Concatena o conteúdo do frontmatter convertido para YAML com o conteúdo markdown
     fullMarkdownContent.value = `---\n${yamlFrontmatter}---\n${content.value.trim()}`;
 }
