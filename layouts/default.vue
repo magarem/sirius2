@@ -16,6 +16,7 @@ import AdmNavbar from '@/layouts/partials/AdmNavbar.vue'
 import Navbar from '@/layouts/partials/Navbar.vue'
 import Footer from '@/layouts/partials/Footer.vue'
 import BackToTop from '@/layouts/partials/BackToTop.vue'
+import { ModalsContainer } from 'vue-final-modal'
 
 const admMode = true
 

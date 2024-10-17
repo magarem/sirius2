@@ -1,5 +1,39 @@
 <template>
     <AdmNavbar />
+    <!-- Modal -->
+<!--Modal-->
+<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+  <div class="modal-overlay absolute w-full h-full bg-white opacity-95"></div>
+
+  <div class="modal-container fixed w-full h-full z-50 overflow-y-auto ">
+    
+    <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-black text-sm z-50">
+      <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+      </svg>
+      (Esc)
+    </div>
+
+    <!-- Add margin if you want to see grey behind the modal-->
+    <div class="modal-content container mx-auto h-auto text-left p-4">
+     
+      <!--Title-->
+      <div class="flex justify-between items-center pb-2">
+        <p class="text-2xl font-bold">Full Screen Modal!</p>
+      </div>
+
+      <!--Body-->
+      <p>Modal content can go here</p>
+      
+      <!--Footer-->
+      <div class="flex justify-end pt-2">
+        <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action</button>
+        <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
     <div class="grid grid-cols-12">
         <div class="col-span-2 mt-5">
             <content-tree :key="refresh" @onFileSelect="updateSlug" @appendNewFile="appendBlankNewFile" />
@@ -7,8 +41,8 @@
         <div class="col-span-10">
             <div class="_container m-5" style="margin-bottom: 70px;">
                 <!-- Modal para selecionar imagem -->
-                <div v-if="isModalOpen" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-                    <div class="bg-white p-4 rounded shadow-lg w-1/3">
+                <div v-if="isModalOpen" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 w-full h-full">
+                    <div class="bg-white p-4 rounded shadow-lg w-full h-full">
                         <ImageSelector :onSelect="selectImage" />
                         <button @click="closeModal" class="bg-red-500 text-white py-1 px-4 mt-4 rounded">
                             Fechar
@@ -32,7 +66,10 @@
                                     class="bg-yellow-500 text-white py-2 px-4 rounded">Renomear</button>
                                 <button v-if="slug && !slug.includes('_dir')" @click="deleteFile"
                                     class="bg-red-500 text-white py-2 px-4 rounded">Excluir</button>
-                            </div>
+                                <button v-if="slug && !slug.includes('_dir')" @click="preview"
+                                    class="bg-slate-500 text-white py-2 px-4 rounded">Preview</button>
+                                <!-- Button trigger modal -->
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -170,6 +207,9 @@ import AdmNavbar from '@/layouts/partials/AdmNavbar.vue'
 import ContentTree from '@/components/ContentTree.vue';
 // import frontmatterFields from '@/content/types.json'
 import * as YAML from 'yaml'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const activeTab = ref('form'); // Aba ativa
 const slug = ref(''); // Slug do artigo
 const frontmatter = ref({}); // Estrutura do frontmatter
@@ -179,6 +219,13 @@ const refresh = ref(0)
 const frontmatterFields_keys = ref({})
 var pageAlredyExists = false
 // Função para gerar o slug
+
+
+const preview = () => {
+    // router.push('/' + slug.value); // Substitua '/outra-pagina' com o caminho da sua página
+    window.open('/' + slug.value, '_blank');
+}
+
 const gerarSlug = (titulo) => {
     return titulo
         .toLowerCase()
@@ -210,17 +257,17 @@ function getDirectory(filePath) {
 }
 
 const toggleEdit = (x) => {
-    if (x.split(',')[0] == 'title') {
+    updateDate()
+    // if (x.split(',')[0] == 'title') {
         if (!pageAlredyExists){
             slug.value = slug.value?.split('/')[0] + '/' + gerarSlug(x.split(',')[1]); // Atualiza o slug
         }
-    }
+    // }
     console.log(x);
-    updateDate()
+    
 }
 // Função que será chamada ao clicar em um arquivo na árvore
 const updateSlug = (slug_) => {
-
     slug.value = slug_;
     loadContent()
 };
@@ -341,9 +388,15 @@ const removeImage = (key, index) => {
     }
 };
 
-
 const loadDataSchema = async () => {
-    const response = await fetch(`/api/readMarkdown?slug=${slug.value.split('/')[0]+'/_dir'}`);
+    var slug_dir
+    if (slug.value.includes('/')){
+        slug_dir = slug.value?.split('/')[0]+'/_dir'
+    }else{
+        slug_dir = '_dir'
+    }
+    const dir_do_slug = slug.value?.split('/')[0]+'/_dir'
+    const response = await fetch(`/api/readMarkdown?slug=${slug_dir}`);
     console.log(`/api/readMarkdown?slug=${slug.value.split('/')[0]+'/_dir'}`);
     var frontmatterFields = await response.json()
     frontmatterFields = frontmatterFields.frontmatter.data_schema
@@ -418,7 +471,7 @@ const saveFullMarkdownContent = async () => {
             //   const yamlFrontmatter = yaml.dump(Object.fromEntries(Object.entries(frontmatter.value).map(([key, field]) => [key, field.value]))); // Converte JSON para YAML
             //   const fullContent = `---\n${yamlFrontmatter}---\n\n${content.value}`;
             //   fullMarkdownContent.value = fullContent;
-
+            updateDate()
             const response = await fetch('/api/saveFullMarkdown', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -427,7 +480,7 @@ const saveFullMarkdownContent = async () => {
 
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Erro ao salvar.');
-            // alert(data.message);
+            alert("Página salva!")
         } catch (error) {
             console.error('Erro ao salvar conteúdo completo:', error);
             alert('Erro ao salvar conteúdo completo.');
@@ -455,7 +508,7 @@ const updateRawFile = () => {
 
 const isModalOpen = ref(false); // Controle para abrir/fechar modal
 const selectedImageIndex = ref(null); // Índice do item da array sendo editado
-
+const isModalImageOpen = ref(false);
 // Lista de URLs de imagens (pode ser obtida de uma API ou gerenciador de arquivos)
 const imageUrls = ref([
     'https://example.com/image1.jpg',
@@ -464,6 +517,16 @@ const imageUrls = ref([
 ]);
 
 // Função para abrir o modal e guardar qual índice de imagem foi clicado
+const openImageModal = (index) => {
+    selectedImageIndex.value = index;
+    isModalImageOpen.value = true;
+};
+
+// Função para fechar o modal
+const closeImageModal = () => {
+    isModalImageOpen.value = false;
+};
+
 const openModal = (index) => {
     selectedImageIndex.value = index;
     isModalOpen.value = true;
@@ -522,4 +585,12 @@ watch(frontmatter, (novoValor) => {
 
 <style scoped>
 /* Adicione seus estilos aqui */
+.modal {
+    transition: opacity 0.25s ease;
+    }
+    body.modal-active {
+    overflow-x: hidden;
+    overflow-y: visible !important;
+    }
+    .opacity-95 {opacity: .95;}
 </style>

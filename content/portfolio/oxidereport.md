@@ -1,7 +1,7 @@
 ---
-title: Oxide report
+title: Oxide report22
 images:
-  - /images/portfolio/ohxidereport.png
+  - /upload/arquitetura-de-solucoes-de-ti.jpg
 imageposition: side
 ---
 Com o Ohxide Report, nosso cliente pode gerenciar de forma eficiente o conteúdo que entrega.
