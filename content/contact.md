@@ -1,11 +1,7 @@
 ---
 title: Novo teste 22oo
 images:
-  - 4444----
-  - '1111'
-  - '333'
-  - img1
-  - img2
+  - /upload/arquitetura-de-solucoes-de-ti.jpg
 ---
 **Entre em Contato**  
  

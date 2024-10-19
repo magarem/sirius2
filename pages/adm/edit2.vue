@@ -258,11 +258,11 @@ function getDirectory(filePath) {
 
 const toggleEdit = (x) => {
     updateDate()
-    // if (x.split(',')[0] == 'title') {
+    if (x.split(',')[0] == 'title') {
         if (!pageAlredyExists){
             slug.value = slug.value?.split('/')[0] + '/' + gerarSlug(x.split(',')[1]); // Atualiza o slug
         }
-    // }
+    }
     console.log(x);
     
 }
@@ -389,26 +389,37 @@ const removeImage = (key, index) => {
 };
 
 const loadDataSchema = async () => {
-    var slug_dir
+    var schema
     if (slug.value.includes('/')){
-        slug_dir = slug.value?.split('/')[0]+'/_dir'
+        schema = slug.value?.split('/')[0]+'/_schema.json'
     }else{
-        slug_dir = '_dir'
+        schema = '_schema.json'
     }
-    const dir_do_slug = slug.value?.split('/')[0]+'/_dir'
-    const response = await fetch(`/api/readMarkdown?slug=${slug_dir}`);
-    console.log(`/api/readMarkdown?slug=${slug.value.split('/')[0]+'/_dir'}`);
-    var frontmatterFields = await response.json()
-    frontmatterFields = frontmatterFields.frontmatter.data_schema
+    // const dir_do_slug = slug.value?.split('/')[0]+'/_dir'
+    const response = await $fetch(`/api/read?filename=content/${schema}`);
+   
+    console.log('response-->', JSON.parse(response));
+    var frontmatterFields
+    if (slug.value.includes('/_dir')){
+        frontmatterFields = {...JSON.parse(response).all, ...JSON.parse(response)._dir}
+    }else{
+        frontmatterFields = JSON.parse(response).all
 
+    }
     console.log('frontmatterFields:', frontmatterFields);
-    console.log('frontmatterFields:', Object.keys(frontmatterFields));
+    
+    // console.log(`/api/read?filename=${slug.value.split('/')[0]+'/_dir'}`);
+    // var frontmatterFields = await response.json()
+    // frontmatterFields = frontmatterFields.frontmatter.data_schema
+
+    // console.log('frontmatterFields:', frontmatterFields);
+    // console.log('frontmatterFields:', Object.keys(frontmatterFields));
 
     Object.keys(frontmatterFields).map(x=>{
         frontmatterFields_keys.value[x] = ''
     })
 
-    console.log('frontmatterFields_keys', frontmatterFields_keys.value);
+    // console.log('frontmatterFields_keys', frontmatterFields_keys.value);
 
     return frontmatterFields
 }
@@ -468,6 +479,7 @@ const saveFullMarkdownContent = async () => {
     }
     else{
         try {
+            // alert(frontmatter.value.title.value)
             //   const yamlFrontmatter = yaml.dump(Object.fromEntries(Object.entries(frontmatter.value).map(([key, field]) => [key, field.value]))); // Converte JSON para YAML
             //   const fullContent = `---\n${yamlFrontmatter}---\n\n${content.value}`;
             //   fullMarkdownContent.value = fullContent;
@@ -480,7 +492,37 @@ const saveFullMarkdownContent = async () => {
 
             const data = await response.json();
             if (!response.ok) throw new Error(data.message || 'Erro ao salvar.');
+
             alert("Página salva!")
+
+            // add page name in index in _dir of directory
+            const response2 = await fetch(`/api/readMarkdown?slug=${slug.value.split('/')[0]+'/_dir'}`);
+            const data2 = await response2.json();
+            console.log('data_dir>>:', data2);
+            data2.frontmatter.files_order.push(slug.value.split('/')[1])
+
+             // Mapeia os campos no formato correto com todos os parâmetros
+            const yamlFrontmatter2 = yaml.dump(
+                Object.fromEntries(
+                    Object.entries(data2.frontmatter).map(([key, field]) => {
+                        if (field && typeof field === 'object' && 'value' in field) {
+                            // return [key, { label: field.label, type: field.type, value: field.value }];
+                            return [key, field.value];
+                        }
+                        return [key, field]; // Se o campo não tiver 'value', trata como campo simples
+                    })
+                )
+            );
+            // Concatena o conteúdo do frontmatter convertido para YAML com o conteúdo markdown
+            const fullMarkdownContent2= `---\n${yamlFrontmatter2}---\n${data2.content.trim()}`;
+            
+            const response3 = await fetch('/api/saveFullMarkdown', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ slug: slug.value.split('/')[0] + '/_dir', fullMarkdownContent: fullMarkdownContent2.trim() }),
+            });
+
+
         } catch (error) {
             console.error('Erro ao salvar conteúdo completo:', error);
             alert('Erro ao salvar conteúdo completo.');
@@ -509,12 +551,7 @@ const updateRawFile = () => {
 const isModalOpen = ref(false); // Controle para abrir/fechar modal
 const selectedImageIndex = ref(null); // Índice do item da array sendo editado
 const isModalImageOpen = ref(false);
-// Lista de URLs de imagens (pode ser obtida de uma API ou gerenciador de arquivos)
-const imageUrls = ref([
-    'https://example.com/image1.jpg',
-    'https://example.com/image2.jpg',
-    'https://example.com/image3.jpg'
-]);
+
 
 // Função para abrir o modal e guardar qual índice de imagem foi clicado
 const openImageModal = (index) => {

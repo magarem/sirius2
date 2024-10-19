@@ -1,0 +1,31 @@
+{
+    "all": {
+        "title": {
+            "label": "titulo",
+            "type": "text",
+            "value": ""
+        },
+        "images": {
+            "label": "images",
+            "type": "image-array",
+            "value": []
+        },
+        "imageposition": {
+            "label": "posicao",
+            "type": "text",
+            "value": ""
+        },
+        "norma": {
+            "label": "Norma",
+            "type": "text",
+            "value": ""
+        }
+    },
+    "_dir": {
+        "files_order": {
+            "label": "Arquivos",
+            "type": "array",
+            "value": []
+        }
+    }
+}

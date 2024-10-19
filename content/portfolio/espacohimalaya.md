@@ -1,10 +1,10 @@
 ---
-title: Espaço Himalaya
+title: Espaço Himalaya ninja
 images:
+  - /upload/paravyomayoga_arte1.png
   - /upload/arquitetura-de-solucoes-de-ti.jpg
   - /upload/ohxidereport_screenshot.png
   - /upload/novagokula.png
-  - /upload/paravyomayoga_arte1.png
 imageposition: side
 ---
 Campanha de Divulgação de Evento no Espaço Himalaya.
